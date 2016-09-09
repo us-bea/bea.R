@@ -1364,8 +1364,8 @@ beaViz <- function(beaPayload) {
 			ptNames <- names(preTab)
 			
 			ptnClean <- gsub('DataValue_', '', ptNames, fixed = TRUE)
-			ptnClean <- gsub('CL_UNIT', 'Units', ptNames, fixed = TRUE)
-			ptnClean <- gsub('UNIT_MULT', 'Multiplier', ptNames, fixed = TRUE)
+			ptnClean <- gsub('CL_UNIT', 'Units', ptnClean, fixed = TRUE)
+			ptnClean <- gsub('UNIT_MULT', 'Multiplier', ptnClean, fixed = TRUE)
 					
 			names(preTab) <- ptnClean
 			
