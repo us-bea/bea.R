@@ -22,7 +22,7 @@ Author: Andrea Julca [aut, cre],
 		Stephen Devine [ctb]
 Maintainer: Andrea Julca <Andrea.Julca@gmail.com>, <andrea.julca@bea.gov>
 Depends:
-    R (>= 3.1), 
+    R (>= 3.2.1), 
 		data.table
 Imports: httr,
 		DT,
