@@ -70,10 +70,11 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		warning('API metadata not returned.  Verify that you are using a valid API key, represented as a character string.')
 		return('API metadata not returned.  Verify that you are using a valid API key, represented as a character string.')
 	}
+
 	#bind dataset metadata together
 	 #This is a bit of a time drag, so we want to only do it if we need to
 	 #And do it separately for each dataset
-	if('nipa' %in% tolower(datasetList)){
+	if('nipa' %in% tolower(datasetList)){try({
 		nipaMDU <- metasetInfo[tolower(Datasetname) == 'nipa', MetaDataUpdated]
 		nipaTabs <- rbindlist(metasetInfo[tolower(Datasetname) == 'nipa', APITable])
 		nipaTabs[, DatasetName := 'NIPA']
@@ -103,9 +104,10 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 			MetaDataUpdated = nipaMDU
 		)]
 		save(nipaIndex, file=paste0(beaMetadataStore, '/NIPA.RData'))
-	}
+	})}
+	
 
-	if('niunderlyingdetail' %in% tolower(datasetList)){
+	if('niunderlyingdetail' %in% tolower(datasetList)){try({
 		niudMDU <- metasetInfo[tolower(Datasetname) == 'niunderlyingdetail', MetaDataUpdated]
 		niudTabs <- rbindlist(metasetInfo[tolower(Datasetname) == 'niunderlyingdetail', APITable])
 		niudTabs[, DatasetName := 'NIUnderlyingDetail']
@@ -136,10 +138,10 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		)]
 	
 		save(niudIndex, file=paste0(beaMetadataStore, '/NIUnderlyingDetail.RData'))
-	}
+	})}
 	
 	
-	if('fixedassets' %in% tolower(datasetList)){
+	if('fixedassets' %in% tolower(datasetList)){try({
 		fixaMDU <- metasetInfo[tolower(Datasetname) == 'fixedassets', MetaDataUpdated]
 		fixaTabs <- rbindlist(metasetInfo[tolower(Datasetname) == 'fixedassets', APITable])
 		fixaTabs[, DatasetName := 'FixedAssets']
@@ -170,13 +172,13 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		)]
 		
 		save(fixaIndex, file=paste0(beaMetadataStore, '/FixedAssets.RData'))
-	}
+	})}
 
 
 	#Regional data: Treated differently from National data 
 
 	#Set "RegionalData"
-	if('regionaldata' %in% tolower(datasetList)){
+	if('regionaldata' %in% tolower(datasetList)){try({
 	
 		rdatMDU <- metasetInfo[tolower(Datasetname) == 'regionaldata', MetaDataUpdated]
 		rdatParam <- metaList$BEAAPI$Datasets$Parameter[[grep('regionaldata', tolower(metaList$BEAAPI$Datasets$Datasetname), fixed=T)]]
@@ -191,10 +193,10 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		rdatIndex[, MetaDataUpdated := rdatMDU]
 	
 		save(rdatIndex, file=paste0(beaMetadataStore, '/RegionalData.RData'))
-	}
+	})}
 	
 	#Dataset "RegionalProduct"
-	if('regionalproduct' %in% tolower(datasetList)){
+	if('regionalproduct' %in% tolower(datasetList)){try({
 		rprdMDU <- metasetInfo[tolower(Datasetname) == 'regionalproduct', MetaDataUpdated]
 		rprdParams <- metaList$BEAAPI$Datasets$Parameters[[grep('regionalproduct', tolower(metaList$BEAAPI$Datasets$Datasetname), fixed=T)]]
 		rprdParNms <- attributes(rprdParams)$names
@@ -211,10 +213,10 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		rprdIndex[, MetaDataUpdated := rprdMDU]
 		
 		save(rprdIndex, file=paste0(beaMetadataStore, '/RegionalProduct.RData'))
-	}	
+	})}	
 	
 	#Dataset "RegionalIncome"
-	if('regionalincome' %in% tolower(datasetList)){
+	if('regionalincome' %in% tolower(datasetList)){try({
 		rincMDU <- metasetInfo[tolower(Datasetname) == 'regionalincome', MetaDataUpdated]
 		rincParams <- metaList$BEAAPI$Datasets$Parameters[[grep('regionalincome', tolower(metaList$BEAAPI$Datasets$Datasetname), fixed=T)]]
 		rincParNms <- attributes(rincParams)$names
@@ -231,6 +233,17 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		rincIndex[, MetaDataUpdated := rincMDU]
 	
 	save(rincIndex, file=paste0(beaMetadataStore, '/RegionalIncome.RData'))
+	})}
+	
+	if(length(datasetList) > length(metasetInfo[, Datasetname])){
+		message('beaR attempted to update metadata for the following dataset(s) which could not be returned from the API: ')
+		message(paste(
+			toupper(datasetList[
+				!(tolower(datasetList) %in% tolower(metasetInfo[, Datasetname]))
+			]), 
+			collapse = ', '
+		))
 	}
+	
 
 }

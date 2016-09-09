@@ -1351,16 +1351,26 @@ beaViz <- function(beaPayload) {
 		})
 
 		output$vistab <-  googleVis::renderGvis({
-			vTab <- googleVis::gvisTable(
-				as.data.frame(
-					beaR::bea2Tab(beaTab, asWide = TRUE)[
-						order(
-							as.numeric(
-								LineNumber
-							)
+			preTab <- as.data.frame(
+				beaR::bea2Tab(beaTab, asWide = TRUE)[
+					order(
+						as.numeric(
+							LineNumber
 						)
-					]
-				), 
+					)
+				]
+			)
+			
+			ptNames <- names(preTab)
+			
+			ptnClean <- gsub('DataValue_', '', ptNames, fixed = TRUE)
+			ptnClean <- gsub('CL_UNIT', 'Units', ptNames, fixed = TRUE)
+			ptnClean <- gsub('UNIT_MULT', 'Multiplier', ptNames, fixed = TRUE)
+					
+			names(preTab) <- ptnClean
+			
+			vTab <- googleVis::gvisTable(
+				preTab, 
 				options=list(
 #					title = hierTab,
 					page='enable',
@@ -1378,14 +1388,23 @@ beaViz <- function(beaPayload) {
 				if(class(beaTabDets[[thisAtr]]) == 'character'){
 					beaTabElem <- beaTabDets[[thisAtr]]
 				} else {
-					beaElemDets <- attributes(beaTabDets[[thisAtr]])
-					beaTabElem <- paste(lapply(beaElemDets$names, function(thisElem){
-						return(paste0(thisElem, ': ', beaTabDets[[thisAtr]][[thisElem]]))
-					}), collapse = "\n")
+				#Add exception for notes
+					if(thisAtr == 'Notes') {
+						beaTabElem <- paste(beaTabDets$Notes$NoteText, collapse = "\n")
+					} else{
+						beaElemDets <- attributes(beaTabDets[[thisAtr]])
+						beaTabElem <- paste(lapply(beaElemDets$names, function(thisElem){
+							return(paste0(thisElem, ': ', beaTabDets[[thisAtr]][[thisElem]]))
+						}), collapse = "\n")
+					}
 				}
 										
 				if(thisAtr != 'Dimensions'){
-					return(paste0(thisAtr, ": \n", beaTabElem))
+					if(tolower(thisAtr) %in% c('statistic', 'utcproductiontime')){
+						return(paste0(thisAtr, ": ", beaTabElem))
+					} else {
+						return(paste0(thisAtr, ": \n", beaTabElem))
+					}
 				} else {
 					return('')
 				} 

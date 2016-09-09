@@ -78,11 +78,12 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 		return(paste0('No API key provided and no local metadata storage detected in ', beaMetadataStore, '. Please provide a valid key to use beaSearch.'))
 	}
 #Check to see if this is the first time using the search function; if so, update all metadata currently handled.
-	if (length(beaMetaFiles) == 0){
+	if (length(beaMetaFiles) < 6){
 	#Create directory and make single call to get all metadata if there are no meta .RData files
 		message('Creating first-time local copy of metadata for all datasets - only done once.')
 		message('Datasets will be updated only if timestamps indicate metadata obsolete in future searches,')
 		message("and only obsolete metadata sets will be updated (it's faster this way).")
+		message("")
 		dir.create(beaMetadataStore, showWarnings = FALSE, recursive = TRUE)
 		
 		#call function to update metadata - remember to specify beaR namespace
@@ -166,8 +167,8 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 		length(grep('RegionalProduct', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('RegionalIncome', beaMetaFiles, fixed = TRUE)) == 0 
 	){
-			warning(paste0('Metadata is missing from ',beaMetadataStore,'; please try beaSearch again using a valid API key.'))
-			return(paste0('Metadata is missing from ',beaMetadataStore,'; please try beaSearch again using a valid API key.'))
+			warning(paste0('Metadata is missing from ',beaMetadataStore,' and may be unavailable on the BEA API; please try beaSearch again later.'))
+			return(paste0('Metadata is missing from ',beaMetadataStore,' and may be unavailable on the BEA API; please try beaSearch again later.'))
 	} else {
 	try({
 		load(paste0(beaMetadataStore, '/FixedAssets.RData'))
