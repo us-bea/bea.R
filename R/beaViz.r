@@ -1,7 +1,7 @@
 #' Visualize BEA API response payload
 #' 
 #' @param beaPayload An httr response from call to BEA API
-#' @description CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail, FixedAssets)
+#' @description CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail), temporarily excluding FixedAssets
 #' @import data.table googleVis shiny shinydashboard ggplot2 stringr
 #' @export
 #' @examples 

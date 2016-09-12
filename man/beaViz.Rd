@@ -10,7 +10,7 @@ beaViz(beaPayload)
 \item{beaPayload}{An httr response from call to BEA API}
 }
 \description{
-CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail, FixedAssets)
+CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail), temporarily excluding FixedAssets
 }
 \examples{
 userSpecList <- list('UserID' = 'yourKey' ,

@@ -4,7 +4,7 @@
 #' @param beaKey Character string representation of user API key. Necessary for first time use and updates; recommended for anything beyond one-off searches from the console.
 #' @param asHtml Option to return results as DT markup, viewable in browser.  Allows search WITHIN YOUR ALREADY-FILTERED RESULTS ONLY. Requires package 'DT' to be installed.
 #' @keywords search
-#' @description Searches indexed dataset table name, label, and series codes.  CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail, FixedAssets) and REGIONAL datasets (RegionalData, RegionalProduct, RegionalIncome)
+#' @description Searches indexed dataset table name, label, and series codes.  CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail), temporarily excluding FixedAssets, and REGIONAL datasets (RegionalData, RegionalProduct, RegionalIncome)
 #' @return An object of class 'data.table' with information about all indexed sets in which the search term was found.
 #' @import data.table 
 #' @importFrom DT datatable
@@ -63,10 +63,11 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 	]
 	data.table::setkey(beaMetaMtime, key = Dataset)
 	
+	#Temporarily remove FixedAssets for V1
 	beaKnownMetaSets <- list(
 		'nipa',
 		'niunderlyingdetail',
-		'fixedassets',
+#		'fixedassets',
 		'regionaldata',
 		'regionalproduct',
 		'regionalincome'
@@ -78,8 +79,8 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 		return(paste0('No API key provided and no local metadata storage detected in ', beaMetadataStore, '. Please provide a valid key to use beaSearch.'))
 	}
 #Check to see if this is the first time using the search function; if so, update all metadata currently handled.
-	if (length(beaMetaFiles) < 6){
-	#Create directory and make single call to get all metadata if there are no meta .RData files
+	if (length(beaMetaFiles) < 5){
+	#Create directory and make single call to get all metadata if there are missing meta .RData files
 		message('Creating first-time local copy of metadata for all datasets - only done once.')
 		message('Datasets will be updated only if timestamps indicate metadata obsolete in future searches,')
 		message("and only obsolete metadata sets will be updated (it's faster this way).")
@@ -151,16 +152,9 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 
 	beaMetaFiles <- list.files(path = beaMetadataStore, full.names = TRUE);
 
-	#None of these approaches work. Need to set manual path I guess?
-	#beaSearchContext <- parent.frame()
-	#silentLoader <- lapply(beaMetaFiles, function(filePath){
-		#load(filePath, envir = environment(beaSearch))
-		#load(filePath, envir = as.environment('package:beaR'))
-		#load(filePath, envir = globalenv())
-	#})
-	
+#Temporarily remove FixedAssets from V1
 	if(
-		length(grep('FixedAssets', beaMetaFiles, fixed = TRUE)) == 0 | 
+		#length(grep('FixedAssets', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('NIPA', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('NIUnderlyingDetail', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('RegionalData', beaMetaFiles, fixed = TRUE)) == 0 | 
@@ -171,7 +165,7 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 			return(paste0('Metadata is missing from ',beaMetadataStore,' and may be unavailable on the BEA API; please try beaSearch again later.'))
 	} else {
 	try({
-		load(paste0(beaMetadataStore, '/FixedAssets.RData'))
+		#load(paste0(beaMetadataStore, '/FixedAssets.RData'))
 		load(paste0(beaMetadataStore, '/NIPA.RData'))
 		load(paste0(beaMetadataStore, '/NIUnderlyingDetail.RData'))
 		load(paste0(beaMetadataStore, '/RegionalData.RData'))
@@ -179,8 +173,9 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 		load(paste0(beaMetadataStore, '/RegionalIncome.RData'))
 	
 		
-	
-		nationalIndex <- rbindlist(list(nipaIndex, niudIndex, fixaIndex), use.names = TRUE, fill=F)
+		#Temporarily remove FixedAssets from V1
+#		nationalIndex <- rbindlist(list(nipaIndex, niudIndex, fixaIndex), use.names = TRUE, fill=F)
+		nationalIndex <- rbindlist(list(nipaIndex, niudIndex), use.names = TRUE, fill=F)
 		nationalIndex[, Account := 'National']
 		data.table::setkey(nationalIndex, key = DatasetName, TableID, LineNumber)
 		
