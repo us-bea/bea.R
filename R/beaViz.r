@@ -209,7 +209,11 @@ beaViz <- function(beaPayload) {
 		
 		nationalIndex <- beaR::beaSearch(' ', beaKey = thisUserID)[Account == 'National']
 		data.table::setkey(nationalIndex, key = DatasetName, TableID, LineNumber)
-	
+
+#/IF NATIONAL
+	if(!(tolower(paste0(thisDataset, thisTabID)) %in% nationalIndex[, tolower(paste0(DatasetName, TableID))])){
+		message('beaViz is not available for this dataset.')
+	} else {
 		#theseSeries <-  unique(beaTab[,SeriesCode])
 		hierTab <- unique(
 			nationalIndex[
@@ -261,7 +265,6 @@ beaViz <- function(beaPayload) {
 			]
 		hierTree[root == node, root := NA]	
 		data.table::setkey(hierTree, key=LineNumber)
-#/IF NATIONAL
 		
 		
 		#Get a list of possible datasets
@@ -1586,7 +1589,7 @@ beaViz <- function(beaPayload) {
 		#	warning('Some rows of this data table may be missing from treemap.')
 		#}
 	}
-	else{
+	}	else{
 			warning("Error in API response. Returning error information.")
 			return(beaTab)		
 	}
