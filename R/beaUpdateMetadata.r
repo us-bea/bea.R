@@ -236,14 +236,20 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	})}
 	
 	if(length(datasetList) > length(metasetInfo[, Datasetname])){
+		staleList <- datasetList[
+			!(tolower(datasetList) %in% tolower(metasetInfo[, Datasetname]))
+		]
 		message('beaR attempted to update metadata for the following dataset(s) which could not be returned from the API: ')
 		message(paste(
-			toupper(datasetList[
-				!(tolower(datasetList) %in% tolower(metasetInfo[, Datasetname]))
-			]), 
+			toupper(staleList), 
 			collapse = ', '
 		))
-	}
+		message('Removing stale data from local storage...')
+		lapply(staleList, function(outdat){
+			try(file.remove(paste0(beaMetadataStore,'/', outdat, '.RData')))
+		})
+#		return(staleList)
+	}# else {return(list())}
 	
 
 }

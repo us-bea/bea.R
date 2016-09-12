@@ -124,9 +124,11 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 				APImtime > mtime,
 				Dataset
 				]
-
-			beaMetaFirstToCache <- FALSE 
 			
+			beaMetaFirstToCache <- FALSE 
+			if(length(timeCompare[is.na(APImtime) & Dataset %in% beaKnownMetaSets, Dataset]) > 0){
+				beaMetaFirstToCache <- TRUE
+			}
 		},
 		error = function(e){
 			beaMetaFirstToCache <- TRUE
@@ -154,18 +156,19 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 
 #Temporarily remove FixedAssets from V1
 	if(
-		#length(grep('FixedAssets', beaMetaFiles, fixed = TRUE)) == 0 | 
+#		length(grep('FixedAssets', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('NIPA', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('NIUnderlyingDetail', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('RegionalData', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('RegionalProduct', beaMetaFiles, fixed = TRUE)) == 0 | 
 		length(grep('RegionalIncome', beaMetaFiles, fixed = TRUE)) == 0 
 	){
-			warning(paste0('Metadata is missing from ',beaMetadataStore,' and may be unavailable on the BEA API; please try beaSearch again later.'))
-			return(paste0('Metadata is missing from ',beaMetadataStore,' and may be unavailable on the BEA API; please try beaSearch again later.'))
+			warning(paste0('Metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; please try beaSearch again later.'))
+			return(paste0('Metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; please try beaSearch again later.'))
 	} else {
+#Temporarily remove FixedAssets from V1
 	try({
-		#load(paste0(beaMetadataStore, '/FixedAssets.RData'))
+#		load(paste0(beaMetadataStore, '/FixedAssets.RData'))
 		load(paste0(beaMetadataStore, '/NIPA.RData'))
 		load(paste0(beaMetadataStore, '/NIUnderlyingDetail.RData'))
 		load(paste0(beaMetadataStore, '/RegionalData.RData'))
