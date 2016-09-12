@@ -47,8 +47,8 @@ beaGet <- function(beaSpec, asString=FALSE, asList=FALSE, asTable=TRUE, asWide=T
 	#Parse user settings into API URL
 	beaUrl <- utils::URLencode(
 		paste0(
-#			'https://www.bea.gov/api/data?UserID=', 
-			'http://inetdev/api/data/?UserID=', 
+			'https://www.bea.gov/api/data?UserID=', 
+#			'http://inetdev/api/data/?UserID=', 
 			beaSpec$userid, 
 			'&', 
 			paste(
