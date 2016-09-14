@@ -45,7 +45,7 @@ is not recommended, as the key is needed to update locally stored metadata.')}
  'XMLUpdateDate'   <- NULL
 
 	requireNamespace('data.table', quietly = TRUE)
-	beaMetadataStore <- paste0(.libPaths(), '/beaR/data')
+	beaMetadataStore <- paste0(.libPaths()[1], '/beaR/data')
 	
 	beaMetaFiles <- list.files(path = beaMetadataStore, full.names = TRUE);
 	beaMetaFilesTimes <- file.info(beaMetaFiles, extra_cols = TRUE)

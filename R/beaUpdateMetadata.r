@@ -39,7 +39,7 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	requireNamespace('httr', quietly = TRUE)
 	requireNamespace('jsonlite', quietly = TRUE)
 
-	beaMetadataStore <- paste0(.libPaths(), '/beaR/data')
+	beaMetadataStore <- paste0(.libPaths()[1], '/beaR/data')
 
 	beaMetaSpecs <- list(
 		'UserID' = beaKey ,
@@ -57,6 +57,12 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		warning('API metadata not returned.  Verify that you are using a valid API key, represented as a character string.')
 		return('API metadata not returned.  Verify that you are using a valid API key, represented as a character string.')
 	}
+	
+	lapply(datasetList, function(outdat){
+		try(file.remove(paste0(beaMetadataStore,'/', outdat, '.RData')), silent = TRUE)
+	})
+
+	
 	
 	#Get JSON String
 	respStr <- httr::content(beaResponse, as = 'text')
@@ -235,21 +241,18 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	save(rincIndex, file=paste0(beaMetadataStore, '/RegionalIncome.RData'))
 	})}
 	
-	if(length(datasetList) > length(metasetInfo[, Datasetname])){
-		staleList <- datasetList[
-			!(tolower(datasetList) %in% tolower(metasetInfo[, Datasetname]))
-		]
-		message('beaR attempted to update metadata for the following dataset(s) which could not be returned from the API: ')
-		message(paste(
-			toupper(staleList), 
-			collapse = ', '
-		))
-		message('Removing stale data from local storage...')
-		lapply(staleList, function(outdat){
-			try(file.remove(paste0(beaMetadataStore,'/', outdat, '.RData')))
-		})
-#		return(staleList)
-	}# else {return(list())}
+#	if(length(datasetList) > length(metasetInfo[, Datasetname])){
+#		staleList <- datasetList[
+#			!(tolower(datasetList) %in% tolower(metasetInfo[, Datasetname]))
+#		]
+#		message('beaR attempted to update metadata for the following dataset(s) which could not be returned from the API: ')
+#		message(paste(
+#			toupper(staleList), 
+#			collapse = ', '
+#		))
+#		message('Removing stale data from local storage...')
+##		return(staleList)
+#	}# else {return(list())}
 	
 
 }
