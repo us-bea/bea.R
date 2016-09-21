@@ -75,24 +75,24 @@ beaSpecs <- list(
 
 Setting asWide = FALSE gives results closest to the way they are actually returned and is a bit more like would traditionally define as "clean" data (every column is a variable, every row is an observation):
 ```r
-beaLongQ <- beaGet(beaSpecQ, asWide = FALSE)
+beaLong <- beaGet(beaSpecs, asWide = FALSE)
 ```
 
 asWide = TRUE and iTableStyle = TRUE by default, and this format looks the most like our iTables:
 ```r
-beaPayloadQ <- beaGet(beaSpecQ)
+beaPayload <- beaGet(beaSpecs)
 ```
 
 Note that this is equivalent to:
 ```r
-beaPayloadQ <- bea2Tab(beaLongQ, asWide = TRUE)
+beaPayload <- bea2Tab(beaLong, asWide = TRUE)
 ```
 
 
 To return in a format in which each column represents a series, set iTableStyle = FALSE.
 This returns columns named with a concatenation of the descriptive column values, whereas rows are populated with numeric DataValues for each TimePeriod, and has one column named "TimePeriod" filled with dates.  
 ```r
-beaStatTab <- beaGet(beaSpecQ, iTableStyle = FALSE)
+beaStatTab <- beaGet(beaSpecs, iTableStyle = FALSE)
 ```
 <aut: Andrea Julca>
 
