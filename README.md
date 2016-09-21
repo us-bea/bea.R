@@ -8,7 +8,7 @@ In order to use this library, users must have a local installation of the R prog
 
 Use of this library will result in data being stored on users' local machines. Specifically, local copies of BEA API metadata will be stored and automatically updated in the .libPaths() "/beaR/data" directory in order to improve performance of beaSearch.
 
-Please contact Developers [at] bea [dot] gov with any questions.
+Please contact <Developers [at] bea [dot] gov> with any questions.
 
 This library serves two core purposes:
 
