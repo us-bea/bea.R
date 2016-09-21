@@ -11,7 +11,9 @@ Use of this library will result in data being stored on users' local machines. S
 Please contact Developers [at] bea [dot] gov with any questions.
 
 This library serves two core purposes:
+
 1.	To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly formats in the user's workspace. Transformation done by default in beaGet is analogous to the format used in [BEA's iTables](http://www.bea.gov/itable/index.cfm), but this can be modified using beaGet's optional parameters.
+
 2.	To enable the search of descriptive metadata [beaSearch].
 
 Other features of the library exist mainly as intermediate methods or are in early stages of development.
