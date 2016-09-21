@@ -51,11 +51,13 @@ You may also specify "asHtml = TRUE" to view in-browser:
 beaSearch('gross domestic', beaKey, asHtml = TRUE)
 ```
 
-If you do not wish to automatically update the metadata, simply search for the term without also passing your key to the function.
+If you do not wish to automatically update the metadata (e.g., you have conducted a study using the search function), simply searching for the term without also passing your key to the function will do a search only using your locally stored version.
 
 ```r
 beaSearch('tobacco')
 ```
+However, *this approach is not advised.* If you would like to retain metadata for posterity, please copy it from the "beaR/data" area of your .libPaths() directory to local storage elsewhere on your machine; this will help prevent accidental overwrite, and will not interfere with the "freshness" of your searches.
+
 #beaGet
 
 The first parameter of this function is a list of your request parameters:
