@@ -4,7 +4,7 @@
 \alias{beaViz}
 \title{Visualize BEA API response payload}
 \usage{
-beaViz(beaPayload)
+beaViz(beaPayload = NULL, beaKey = NULL)
 }
 \arguments{
 \item{beaPayload}{An httr response from call to BEA API}
