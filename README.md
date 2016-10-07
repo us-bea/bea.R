@@ -31,6 +31,11 @@ library(devtools)
 install_github('us-bea/beaR')
 ```
 
+##Call the library
+```r
+library(devtools)
+```
+
 #Assign your key
 In the examples below, we have already assumed that a key has been assigned to the variable "beaKey:"
 ```r
