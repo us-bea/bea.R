@@ -1,6 +1,7 @@
 #' Visualize BEA API response payload
 #' 
 #' @param beaPayload An httr response from call to BEA API
+#' @param beaKey Your 36-digit BEA API key
 #' @description CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail), temporarily excluding FixedAssets
 #' @import data.table googleVis shiny shinydashboard ggplot2 stringr
 #' @export
@@ -14,7 +15,7 @@
 #' resp <- beaGet(userSpecList)
 #' BDF <- beaViz(resp)
 
-beaViz <- function(beaPayload) {
+beaViz <- function(beaPayload = NULL, beaKey = NULL) {
 	if(!requireNamespace('googleVis', quietly = TRUE)){
 		stop(
 			'Package googleVis needed to use beaViz.', 
@@ -442,6 +443,10 @@ beaViz <- function(beaPayload) {
 				FALSE
 			)
 			
+			if(is.null(thisParamCode)){
+				return()
+			}
+			
 			if(is.na(thisParamCode)){
 				return()
 			} else {
@@ -503,6 +508,10 @@ beaViz <- function(beaPayload) {
 				FALSE
 			)
 			
+			if(is.null(thisParamCode)){
+				return()
+			}
+
 			if(is.na(thisParamCode)){
 				return()
 			} else {
@@ -564,7 +573,11 @@ beaViz <- function(beaPayload) {
 				), 
 				FALSE
 			)
-			
+					
+			if(is.null(thisParamCode)){
+				return()
+			}
+
 			if(is.na(thisParamCode)){
 				return()
 			} else {
@@ -626,7 +639,11 @@ beaViz <- function(beaPayload) {
 				), 
 				FALSE
 			)
-			
+						
+			if(is.null(thisParamCode)){
+				return()
+			}
+
 			if(is.na(thisParamCode)){
 				return()
 			} else {
@@ -690,6 +707,10 @@ beaViz <- function(beaPayload) {
 				FALSE
 			)
 			
+			if(is.null(thisParamCode)){
+				return()
+			}
+
 			if(is.na(thisParamCode)){
 				return()
 			} else {
@@ -750,6 +771,11 @@ beaViz <- function(beaPayload) {
 				), 
 				FALSE
 			)
+
+
+			if(is.null(thisParamCode)){
+				return()
+			}
 			
 			if(is.na(thisParamCode)){
 				return()
@@ -811,6 +837,10 @@ beaViz <- function(beaPayload) {
 				), 
 				FALSE
 			)
+
+			if(is.null(thisParamCode)){
+				return()
+			}
 			
 			if(is.na(thisParamCode)){
 				return()
@@ -872,6 +902,10 @@ beaViz <- function(beaPayload) {
 				FALSE
 			)
 			
+			if(is.null(thisParamCode)){
+				return()
+			}
+
 			if(is.na(thisParamCode)){
 				return()
 			} else {
@@ -931,7 +965,12 @@ beaViz <- function(beaPayload) {
 				), 
 				FALSE
 			)
+
 			
+			if(is.null(thisParamCode)){
+				return()
+			}
+
 			if(is.na(thisParamCode)){
 				return()
 			} else {
@@ -1354,7 +1393,7 @@ beaViz <- function(beaPayload) {
 		})
 
 		output$vistab <-  googleVis::renderGvis({
-			preTab <- as.data.frame(
+			preTab <- try(as.data.frame(
 				beaR::bea2Tab(beaTab, asWide = TRUE)[
 					order(
 						as.numeric(
@@ -1362,7 +1401,7 @@ beaViz <- function(beaPayload) {
 						)
 					)
 				]
-			)
+			), silent = TRUE)
 			
 			ptNames <- names(preTab)
 			
@@ -1465,87 +1504,118 @@ beaViz <- function(beaPayload) {
 				apiAttr <- apiInStr #eval(parse(apiInStr));
 				return(apiAttr);
 			})
-
+			
 			specStr <- paste0("beaData <- beaR::beaGet( \n list(\n 'UserID' = '", thisUserID, "', \n 'Method' = 'GetData', \n 'DatasetName' = '", selectedSet,"'",
-				ifelse( 
-					!is.na(userDefPrms[1]), 
+				ifelse(
+					!is.null(userDefPrms[1]),
+					ifelse(!is.na(userDefPrms[1]), 
 					paste0(", \n '", userDefPrms[1], "' = '", input$apiParam1,"'"),
-					""
+					""), ""
 				), 
+				ifelse(
+					!is.null(userDefPrms[2]),
 				ifelse( 
 					!is.na(userDefPrms[2]), 
 					paste0(", \n '", userDefPrms[2], "' = '", input$apiParam2,"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(userDefPrms[3]), 
 				ifelse( 
 					!is.na(userDefPrms[3]), 
 					paste0(", \n '", userDefPrms[3], "' = '", input$apiParam3,"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(userDefPrms[4]), 
 				ifelse( 
 					!is.na(userDefPrms[4]), 
 					paste0(", \n '", userDefPrms[4], "' = '", input$apiParam4,"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(userDefPrms[5]), 
 				ifelse( 
 					!is.na(userDefPrms[5]), 
 					paste0(", \n '", userDefPrms[5], "' = '", input$apiParam5,"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(userDefPrms[6]), 
 				ifelse( 
 					!is.na(userDefPrms[6]), 
 					paste0(", \n '", userDefPrms[6], "' = '", input$apiParam6,"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(userDefPrms[7]), 
 				ifelse( 
 					!is.na(userDefPrms[7]), 
 					paste0(", \n '", userDefPrms[7], "' = '", input$apiParam7,"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(userDefPrms[8]), 
 				ifelse( 
 					!is.na(userDefPrms[8]), 
 					paste0(", \n '", userDefPrms[8], "' = '", input$apiParam8,"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(userDefPrms[9]), 
 				ifelse( 
 					!is.na(userDefPrms[9]), 
 					paste0(", \n '", userDefPrms[9], "' = '", input$apiParam9,"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(allValsPrms[1]), 
 				ifelse( 
 					!is.na(allValsPrms[1]), 
 					paste0(", \n '", allValsPrms[1], "' = '", allValsSetr[1],"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(allValsPrms[2]), 
 				ifelse( 
 					!is.na(allValsPrms[2]), 
 					paste0(", \n '", allValsPrms[2], "' = '", allValsSetr[2],"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(allValsPrms[3]), 
 				ifelse( 
 					!is.na(allValsPrms[3]), 
 					paste0(", \n '", allValsPrms[3], "' = '", allValsSetr[3],"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(allValsPrms[4]), 
 				ifelse( 
 					!is.na(allValsPrms[4]), 
 					paste0(", \n '", allValsPrms[4], "' = '", allValsSetr[4],"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(allValsPrms[5]), 
 				ifelse( 
 					!is.na(allValsPrms[5]), 
 					paste0(", \n '", allValsPrms[5], "' = '", allValsSetr[5],"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(allValsPrms[6]), 
 				ifelse( 
 					!is.na(allValsPrms[6]), 
 					paste0(", \n '", allValsPrms[6], "' = '", allValsSetr[6],"'"),
-					""
+					""), ""
 				), 
+				ifelse( 
+					!is.null(allValsPrms[7]), 
 				ifelse( 
 					!is.na(allValsPrms[7]), 
 					paste0(", \n '", allValsPrms[7], "' = '", allValsSetr[7],"'"),
-					""
+					""), ""
 				), 
 				"))"	
 			)
@@ -1582,7 +1652,7 @@ beaViz <- function(beaPayload) {
 
 	}
 	
-	shiny::shinyApp(ui, server)
+	suppressWarnings(shiny::shinyApp(ui, server))
 	
 	
 		#if(length(unique(hierTree[, nodeID])) > unique(tmFnl[,nodeID])){
