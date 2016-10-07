@@ -20,14 +20,16 @@ Other features of the library exist mainly as intermediate methods or are in ear
 
 #Installation
 
-If you do not have the devtools library, please install:
+If you do not have the devtools and httr libraries, please install:
 ```r
-install.packages('devtools')
+install.packages(c('devtools', 'httr'))
 ```
 
 Then, install directly from this repo:
 ```r
+library(httr)
 library(devtools)
+set_config( config( ssl_verifypeer = 0L ) )
 install_github('us-bea/beaR')
 ```
 
