@@ -33,7 +33,7 @@ install_github('us-bea/beaR')
 
 ##Call the library
 ```r
-library(devtools)
+library(beaR)
 ```
 
 #Assign your key
