@@ -16,7 +16,7 @@ This library serves two core purposes:
 
 2.	To enable the search of descriptive metadata [beaSearch].
 
-Other features of the library exist mainly as intermediate methods or are in early stages of development.
+Other features of the library exist mainly as intermediate methods or are in early stages of development. For a complete list of functions and their usage, please see [the manual](https://github.com/us-bea/beaR/blob/master/beaR_Manual.pdf).
 
 #Installation
 
@@ -37,6 +37,13 @@ install_github('us-bea/beaR')
 ```r
 library(beaR)
 ```
+
+##Installation troubleshooting
+In some cases, users have needed to install the packages upon which this library is dependent prior to installing beaR itself via install_github. This can be resolved with the line below:
+```r
+install.packages(c('data.table', 'jsonlite', 'ggplot2', 'googleVis', 'DT', 'stringr', 'shiny', 'shinydashboard'))
+```
+Ensure that all libraries in the list above have been properly installed, and then try to install using "install_github" once again.
 
 #Assign your key
 In the examples below, we have already assumed that a key has been assigned to the variable "beaKey:"
