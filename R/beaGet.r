@@ -16,7 +16,7 @@
 #'									'datasetname' = 'NIPA',
 #'									'Frequency' = 'A',
 #'									'TableID' = '68',
-#'									'Year' = 'X')
+#'									'Year' = 'X')		#In this example, 'X' gets all years available
 #' BDT <- beaGet(userSpecList, asTable = TRUE)
 
 beaGet <- function(beaSpec, asString=FALSE, asList=FALSE, asTable=TRUE, asWide=TRUE, isMeta=FALSE, iTableStyle=TRUE) { 
