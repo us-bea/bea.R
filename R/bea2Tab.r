@@ -108,7 +108,16 @@ bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 			)
 		)
 		attributes(beaResults)$is.wide <- TRUE
-		
+		if(
+			any(
+				tolower(
+					attributes(beaResponse)$params$ParameterValue
+				) %in% 
+					c('nipa', 'niunderlyingdetail', 'fixedassets')
+			)
+		){
+			beaResults[order(as.numeric(LineNumber))]
+		}
 		if (!iTableStyle){
 			beaTrans <- beaResults 
 			
