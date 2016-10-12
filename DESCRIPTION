@@ -3,22 +3,9 @@ Title: R interface to the Bureau of Economic Analysis API
 Version: 1.0.0
 Authors@R: c(person("Andrea", "Julca", role = c("aut", "cre"),
 		     email = c("Andrea.Julca@gmail.com", "Andrea.Julca@bea.gov")),
-				 person("Jeff", "Chen", role = "ctb"),
-				 person("Walter", "Kampas", role = "ctb"),
-				 person("Bryan", "Vengelen", role = "ctb"),
-				 person("James", "Kim", role = "ctb"),
-				 person("Adji-Fatou", "Diagne", role = "ctb"),
-				 person("Gerardo", "Bonilla", role = "ctb"),
-				 person("Stephen", "Devine", role = "ctb"))
+				 person("Jeff", "Chen", role = "ctb"))
 Author: Andrea Julca [aut, cre], 
-		Jeff Chen [ctb], 
-		Jonathan Auerbach [ctb], 
-		Walter Kampas [ctb], 
-		Bryan Vengelen [ctb], 
-		James Kim [ctb], 
-		Adji-Fatou Diagne [ctb], 
-		Gerardo Bonilla [ctb], 
-		Stephen Devine [ctb]
+		Jeff Chen [ctb]
 Maintainer: Andrea Julca <Developers@bea.gov>
 Depends:
     R (>= 3.2.1), 
