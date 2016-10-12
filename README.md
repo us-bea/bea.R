@@ -30,7 +30,7 @@ Then, install directly from this repo:
 library(httr)
 library(devtools)
 set_config( config( ssl_verifypeer = 0L ) )
-install_github('us-bea/beaR')
+devtools::install_github('us-bea/beaR')
 ```
 
 ##Call the library
