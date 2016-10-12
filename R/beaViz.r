@@ -2,7 +2,7 @@
 #' 
 #' @param beaPayload An httr response from call to BEA API
 #' @param beaKey Your 36-digit BEA API key
-#' @description CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail), temporarily excluding FixedAssets
+#' @description When entered into the R console, the function below starts an interactive dashboard. CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail, FixedAs-sets). R Studio users must opt to "show in browser" for this method to be fully functional.
 #' @import data.table googleVis shiny shinydashboard ggplot2 stringr
 #' @export
 #' @examples 
