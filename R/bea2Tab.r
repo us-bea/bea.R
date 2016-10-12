@@ -108,7 +108,6 @@ bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 				)
 			)
 		)
-		attributes(beaResults)$is.wide <- TRUE
 		if(
 			any(
 				tolower(
@@ -119,6 +118,7 @@ bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 		){
 			beaResults <- beaResults[order(as.numeric(LineNumber))]
 		}
+		attributes(beaResults)$is.wide <- TRUE
 		if (!iTableStyle){
 			beaTrans <- beaResults 
 			
