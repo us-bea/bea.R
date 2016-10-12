@@ -23,7 +23,8 @@ Maintainer: Andrea Julca <Developers@bea.gov>
 Depends:
     R (>= 3.2.1), 
 		data.table
-Imports: httr,
+Imports: 
+		httr,
 		DT,
 		shiny, 
 		jsonlite,
