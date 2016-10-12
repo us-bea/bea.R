@@ -34,6 +34,7 @@ bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 
 	DataValue <- NULL
 	TimePeriod <- NULL
+	LineNumber <- NULL
 	beaResults <- data.table::as.data.table(beaResponse)
 	attributes(beaResults)$is.wide <- FALSE
 
@@ -116,7 +117,7 @@ bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 					c('nipa', 'niunderlyingdetail', 'fixedassets')
 			)
 		){
-			beaResults[order(as.numeric(LineNumber))]
+			beaResults <- beaResults[order(as.numeric(LineNumber))]
 		}
 		if (!iTableStyle){
 			beaTrans <- beaResults 
