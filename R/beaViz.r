@@ -11,7 +11,7 @@
 #'									'datasetname' = 'NIPA',
 #'									'Frequency' = 'A',
 #'									'TableID' = '68',
-#'									'Year' = 'X')		#In this example, 'X' gets all years available
+#'									'Year' = 'X')		
 #' resp <- beaGet(userSpecList)
 #' BDF <- beaViz(resp)
 

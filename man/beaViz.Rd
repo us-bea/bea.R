@@ -8,9 +8,11 @@ beaViz(beaPayload = NULL, beaKey = NULL)
 }
 \arguments{
 \item{beaPayload}{An httr response from call to BEA API}
+
+\item{beaKey}{Your 36-digit BEA API key}
 }
 \description{
-CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail), temporarily excluding FixedAssets
+When entered into the R console, the function below starts an interactive dashboard. CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail, FixedAs-sets). R Studio users must opt to "show in browser" for this method to be fully functional.
 }
 \examples{
 userSpecList <- list('UserID' = 'yourKey' ,
@@ -18,7 +20,7 @@ userSpecList <- list('UserID' = 'yourKey' ,
 								'datasetname' = 'NIPA',
 								'Frequency' = 'A',
 								'TableID' = '68',
-								'Year' = 'X')
+								'Year' = 'X')		
 resp <- beaGet(userSpecList)
 BDF <- beaViz(resp)
 userSpecList <- list('UserID' = 'yourKey' ,
