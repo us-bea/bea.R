@@ -105,6 +105,7 @@ beaViz <- function(beaPayload = NULL, beaKey = NULL) {
 
 	message('')
 	message('Press "ESC" to exit the beaViz function.')
+	message('Note: If you are using RStudio, you will need to "Open in Browser" to view graphs/table.')
 	message('')
 	message('****You can safely ignore the following errors:****')
 	#beaTab <- beaR::bea2Tab(beaList)
