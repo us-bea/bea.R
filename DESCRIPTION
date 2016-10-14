@@ -3,9 +3,11 @@ Title: R interface to the Bureau of Economic Analysis API
 Version: 1.0.0
 Authors@R: c(person("Andrea", "Julca", role = c("aut", "cre"),
 		     email = c("Andrea.Julca@gmail.com", "Andrea.Julca@bea.gov")),
-				 person("Jeff", "Chen", role = "ctb"))
+				 person("Jeff", "Chen", role = "ctb"),
+				 person("Walt", "Kampas", role = "ctb"))
 Author: Andrea Julca [aut, cre], 
-		Jeff Chen [ctb]
+		Jeff Chen [ctb],
+		Walt Kampas [ctb]
 Maintainer: Andrea Julca <Developers@bea.gov>
 Depends:
     R (>= 3.2.1), 
@@ -18,7 +20,16 @@ Imports:
 		googleVis,
 		shinydashboard,
 		ggplot2, 
-		stringr
+		stringr,
+		chron,
+		gtable,
+		scales,
+		htmltools,
+		httpuv,
+		xtable,
+		stringi,
+		magrittr,
+		htmlwidgets
 Description: The beaR package is an R interface for the Bureau of Economic
     Analysis (BEA) API that serves two core purposes - 
     1. To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly 
