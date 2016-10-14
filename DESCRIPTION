@@ -31,7 +31,9 @@ Imports:
 		magrittr,
 		htmlwidgets,
 		Rcpp,
-		munsell
+		curl,
+		munsell,
+		colorspace
 Description: The beaR package is an R interface for the Bureau of Economic
     Analysis (BEA) API that serves two core purposes - 
     1. To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly 
