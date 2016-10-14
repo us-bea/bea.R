@@ -103,7 +103,10 @@ beaViz <- function(beaPayload = NULL, beaKey = NULL) {
  'Account'  			 	 <- NULL
  'ParentLineNumber'	 <- NULL
 
-	
+	message('')
+	message('Press "ESC" to exit the beaViz function.')
+	message('')
+	message('****You can safely ignore the following errors:****')
 	#beaTab <- beaR::bea2Tab(beaList)
 	
 		#Get info about the dataset and request

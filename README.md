@@ -1,5 +1,5 @@
 # beaR
-beaR: A library for use with BEA’s API in R (version 3.2.1 or higher).
+beaR: A library for use with BEA’s API.
 To use this library, please [register for an API key](http://www.bea.gov/API/signup/index.cfm) first.
 
 You can review [the API documentation](http://www.bea.gov/API/bea_web_service_api_user_guide.htm) for information about the parameters required for each dataset.
