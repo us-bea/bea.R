@@ -123,7 +123,7 @@ This library serves two core purposes:
 
 2.	To enable the search of descriptive metadata [beaSearch].
 
-Other features of the library exist mainly as intermediate methods or are in early stages of development. For a complete list of functions and their usage, please see [the manual](https://github.com/us-bea/beaR/blob/master/beaR_Manual.pdf).
+Other features of the library exist mainly as intermediate methods or are in early stages of development.
 
 
 # Disclaimer
