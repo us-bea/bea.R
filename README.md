@@ -27,27 +27,27 @@ After you test the library, please send any feedback and, if possible, code that
 **Please take the following steps:** 
 
 1. Run the following line of code to install the 'httr' and 'devtools' packages:
-```r
-    install.packages(c('devtools', 'httr'))
-```
+    ```r
+        install.packages(c('devtools', 'httr'))
+    ```
 
 2. Load the packages listed in Step 1 using the 'library' function:
-```r
-    library(httr)
-    library(devtools)
-```
+    ```r
+        library(httr)
+        library(devtools)
+    ```
 
 3. Install the beaR library from the BEA GitHub repo: 
-```r
-    set_config( config( ssl_verifypeer = 0L ))           #zero L
-    install_github('us-bea/beaR')
-```
+    ```r
+        set_config( config( ssl_verifypeer = 0L ))           #zero L
+        install_github('us-bea/beaR')
+    ```
 
 
 4. Load beaR using the library function.
-```r
-    library(beaR)
-```
+    ```r
+        library(beaR)
+    ```
 You are now ready to use beaR! 
 
 # To Get Started
