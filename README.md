@@ -21,8 +21,8 @@ After you test the library, please send any feedback and, if possible, code that
 
 3. Install the beaR library from the BEA GitHub repo: 
     ```r
-    set_config( config( ssl_verifypeer = 0L ))           #zero L
-    install_github('us-bea/beaR')
+    httr::set_config( config( ssl_verifypeer = 0L ))           #zero L
+    devtools::install_github('us-bea/beaR')
     ```
 
 
