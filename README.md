@@ -1,20 +1,3 @@
-# About beaR
-beaR is a library for use with BEA’s API and the R programming language, version 3.2.1 or higher.
-
-To use this library, please [register for an API key](http://www.bea.gov/API/signup/index.cfm) first.
-
-You can review [the API documentation](http://www.bea.gov/API/bea_web_service_api_user_guide.htm) for information about the parameters required for each dataset.
-
-This library serves two core purposes:
-
-1.	To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly formats in the user's workspace. Transformation done by default in beaGet is analogous to the format used in [BEA's iTables](http://www.bea.gov/itable/index.cfm), but this can be modified using beaGet's optional parameters.
-
-2.	To enable the search of descriptive metadata [beaSearch].
-
-Other features of the library exist mainly as intermediate methods or are in early stages of development. For a complete list of functions and their usage, please see [the manual](https://github.com/us-bea/beaR/blob/master/beaR_Manual.pdf).
-
-Please contact Developers@bea.gov with any questions.
-
 # Instructions
 
 Thank you for taking the time to test BEA's R library. The library is intended to make it easier to retrieve and work with BEA data. 
@@ -129,6 +112,18 @@ beaViz(beaPayload)
 ```
 Please note that beaViz is currently only available for use with the NIPA and NIUnderlyingDetail datasets and the associated metadata. 
 BEA is open to any thoughts you may have about visually representing BEA data.
+
+
+# About beaR
+beaR is a library for use with BEA’s API and the R programming language, version 3.2.1 or higher.
+
+This library serves two core purposes:
+
+1.	To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly formats in the user's workspace. Transformation done by default in beaGet is analogous to the format used in [BEA's iTables](http://www.bea.gov/itable/index.cfm), but this can be modified using beaGet's optional parameters.
+
+2.	To enable the search of descriptive metadata [beaSearch].
+
+Other features of the library exist mainly as intermediate methods or are in early stages of development. For a complete list of functions and their usage, please see [the manual](https://github.com/us-bea/beaR/blob/master/beaR_Manual.pdf).
 
 
 # Disclaimer
