@@ -1,25 +1,5 @@
-# beaR
-beaR: A library for use with BEA’s API and R version 3.2.1 or higher.
-To use this library, please [register for an API key](http://www.bea.gov/API/signup/index.cfm) first.
-
-You can review [the API documentation](http://www.bea.gov/API/bea_web_service_api_user_guide.htm) for information about the parameters required for each dataset.
-
-In order to use this library, users must have a local installation of the R programming language. Installation of this library will also install the libraries noted in the Depends and Imports sections of the DESCRIPTION file. 
-
-Use of this library will result in data being stored on users' local machines. Specifically, local copies of BEA API metadata will be stored and automatically updated in the .libPaths() "/beaR/data" directory in order to improve performance of beaSearch.
-
-Please contact Developers@bea.gov with any questions.
-
-This library serves two core purposes:
-
-1.	To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly formats in the user's workspace. Transformation done by default in beaGet is analogous to the format used in [BEA's iTables](http://www.bea.gov/itable/index.cfm), but this can be modified using beaGet's optional parameters.
-
-2.	To enable the search of descriptive metadata [beaSearch].
-
-Other features of the library exist mainly as intermediate methods or are in early stages of development. For a complete list of functions and their usage, please see [the manual](https://github.com/us-bea/beaR/blob/master/beaR_Manual.pdf).
-
-# A Special Note for Testers
 Thank you for taking the time to test BEA's R library. The library is intended to make it easier to retrieve and work with BEA data. 
+
 After you test the library, please send any feedback and, if possible, code that you have written to Developers@bea.gov (feedback and code can be provided together as an .Rmd file, or can be provided separately, in the formats of your preference).
 
 # To Install and Load the beaR Library 
@@ -52,6 +32,7 @@ You are now ready to use beaR!
 
 # To Get Started
 You must first  [register for an API key](http://www.bea.gov/API/signup/index.cfm) from BEA by providing your name and email address. The key will be emailed to you. 
+
 Once you have received your BEA API key, save it to a variable to make it easier to use later: 
 
 ```r
@@ -95,26 +76,17 @@ beaSpecs <- list(
 	'Frequency' = 'Q',
 	'Year' = 'X',
 	'ResultFormat' = 'json'
-)
+);
+beaPayload <- beaGet(beaSpecs);
 ```
 
-To retrieve multiple years, list all the years. For example, to retrieve data for 2011-2015, use "Year"="2011,2012,2013,2014,2015"
+To retrieve a limited selection of multiple years, list all the years you want to retrieve. For example, to retrieve data for 2011-2015, use "Year"="2011,2012,2013,2014,2015"
 
 The  [API documentation](http://www.bea.gov/API/bea_web_service_api_user_guide.htm) includes information about the specific parameters required by beaGET. 
 
-Setting asWide = FALSE gives results closest to the way they are actually returned and is a bit more like would traditionally define as "clean" data (every column is a variable, every row is an observation):
+Setting asWide = FALSE gives results closest to the way they are actually returned by the API (every column is a variable, every row is an observation):
 ```r
 beaLong <- beaGet(beaSpecs, asWide = FALSE)
-```
-
-asWide = TRUE and iTableStyle = TRUE by default, and this format looks the most like our iTables:
-```r
-beaPayload <- beaGet(beaSpecs)
-```
-
-Note that this is equivalent to:
-```r
-beaPayload <- bea2Tab(beaLong, asWide = TRUE)
 ```
 
 To return in a format in which each column represents a series, set iTableStyle = FALSE.
@@ -124,12 +96,14 @@ This returns columns named with a concatenation of the descriptive column values
 beaStatTab <- beaGet(beaSpecs, iTableStyle = FALSE)
 ```
 
+By default, asWide = TRUE and iTableStyle = TRUE, as this format is the most similar to our iTables; the "beaPayload" object in our first beaGet example at the beginning of this section is in the default format.
+
 
 # To Use beaViz  
 
 The beaR library also includes an experimental method to create a visual dashboard. This method is still under development. Currently, it is designed to work with the standard R Console interface—not with other interfaces such as R Studio. (However, if you want to experiment with beaViz in R Studio, click on "Open in Browser" at the top of pop-up box after you execute the beaViz method.  
 
-The beaViz method allows you to pass a variable generated from beaGet to create a dashboard. To use the "beaPayload" example given above, 
+The beaViz method allows you to pass a variable generated from beaGet to create a dashboard. To use the "beaPayload" example given above, enter the following command:
 
 ```r
 beaViz(beaPayload)
@@ -138,7 +112,26 @@ Please note that beaViz is currently only available for use with the NIPA and NI
 BEA is open to any thoughts you may have about visually representing BEA data.
 
 
-<aut: Andrea Julca>
+# About beaR
+beaR is a library for use with BEA’s API and the R programming language, version 3.2.1 or higher.
+
+To use this library, please [register for an API key](http://www.bea.gov/API/signup/index.cfm) first.
+
+You can review [the API documentation](http://www.bea.gov/API/bea_web_service_api_user_guide.htm) for information about the parameters required for each dataset.
+
+This library serves two core purposes:
+
+1.	To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly formats in the user's workspace. Transformation done by default in beaGet is analogous to the format used in [BEA's iTables](http://www.bea.gov/itable/index.cfm), but this can be modified using beaGet's optional parameters.
+
+2.	To enable the search of descriptive metadata [beaSearch].
+
+Other features of the library exist mainly as intermediate methods or are in early stages of development. For a complete list of functions and their usage, please see [the manual](https://github.com/us-bea/beaR/blob/master/beaR_Manual.pdf).
+
+Please contact Developers@bea.gov with any questions.
 
 # Disclaimer
 The United States Department of Commerce (DOC) GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. DOC has relinquished control of the information and no longer has responsibility to protect the integrity, confidentiality, or availability of the information. Any claims against the Department of Commerce stemming from the use of its GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.
+
+Use of this library will result in data being stored on users' local machines. Specifically, local copies of BEA API metadata will be stored and automatically updated in the .libPaths() "/beaR/data" directory in order to improve performance of beaSearch.
+
+<aut: Andrea Julca>
