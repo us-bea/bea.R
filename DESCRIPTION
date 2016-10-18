@@ -31,7 +31,6 @@ Imports:
 		magrittr,
 		htmlwidgets,
 		Rcpp,
-		curl,
 		munsell,
 		colorspace,
 		plyr,
