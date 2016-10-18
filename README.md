@@ -10,7 +10,7 @@ After you test the library, please send any feedback and, if possible, code that
 
 1. Run the following line of code to install the 'httr' and 'devtools' packages:
     ```r
-    install.packages(c('devtools', 'httr', 'curl'))
+    install.packages(c('devtools', 'httr'))
     ```
 
 2. Load the packages listed in Step 1 using the 'library' function:
