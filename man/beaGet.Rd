@@ -8,7 +8,7 @@ beaGet(beaSpec, asString = FALSE, asList = FALSE, asTable = TRUE,
   asWide = TRUE, isMeta = FALSE, iTableStyle = TRUE)
 }
 \arguments{
-\item{beaSpec}{A list of user specifications (required)}
+\item{beaSpec}{A list of user specifications (required). In this example, 'GetData' specifies that we want data values (rather than metadata), 'NIPA' specifies the dataset, 'A' specifies that we want annual data, 'TableID' = '68' gets a specific table, and 'X' gets all years. See BEA API documentation or use metadata methods for complete lists of parameters.}
 
 \item{asString}{Return result body as a string (default: FALSE)}
 
@@ -34,7 +34,7 @@ userSpecList <- list('UserID' = 'yourAPIKey' ,
 								'datasetname' = 'NIPA',
 								'Frequency' = 'A',
 								'TableID' = '68',
-								'Year' = 'X')
+								'Year' = 'X')	
 BDT <- beaGet(userSpecList, asTable = TRUE)
 }
 

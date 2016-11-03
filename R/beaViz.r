@@ -2,7 +2,7 @@
 #' 
 #' @param beaPayload An httr response from call to BEA API
 #' @param beaKey Your 36-digit BEA API key
-#' @description CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail), temporarily excluding FixedAssets
+#' @description When entered into the R console, the function below starts an interactive dashboard. CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail, FixedAs-sets). R Studio users must opt to "show in browser" for this method to be fully functional.
 #' @import data.table googleVis shiny shinydashboard ggplot2 stringr
 #' @export
 #' @examples 
@@ -11,7 +11,7 @@
 #'									'datasetname' = 'NIPA',
 #'									'Frequency' = 'A',
 #'									'TableID' = '68',
-#'									'Year' = 'X')
+#'									'Year' = 'X')		
 #' resp <- beaGet(userSpecList)
 #' BDF <- beaViz(resp)
 
@@ -103,7 +103,11 @@ beaViz <- function(beaPayload = NULL, beaKey = NULL) {
  'Account'  			 	 <- NULL
  'ParentLineNumber'	 <- NULL
 
-	
+	message('')
+	message('Press "ESC" to exit the beaViz function.')
+	message('Note: If you are using RStudio, you will need to "Open in Browser" to view graphs/table.')
+	message('')
+	message('****You can safely ignore the following errors:****')
 	#beaTab <- beaR::bea2Tab(beaList)
 	
 		#Get info about the dataset and request

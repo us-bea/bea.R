@@ -34,6 +34,7 @@ bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 
 	DataValue <- NULL
 	TimePeriod <- NULL
+	LineNumber <- NULL
 	beaResults <- data.table::as.data.table(beaResponse)
 	attributes(beaResults)$is.wide <- FALSE
 
@@ -107,8 +108,17 @@ bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 				)
 			)
 		)
+		if(
+			any(
+				tolower(
+					attributes(beaResponse)$params$ParameterValue
+				) %in% 
+					c('nipa', 'niunderlyingdetail', 'fixedassets')
+			)
+		){
+			beaResults <- beaResults[order(as.numeric(LineNumber))]
+		}
 		attributes(beaResults)$is.wide <- TRUE
-		
 		if (!iTableStyle){
 			beaTrans <- beaResults 
 			
