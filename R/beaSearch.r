@@ -101,7 +101,7 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 			'ResultFormat' = 'json'
 		)
 		#Get metadata response with timestamps we need to check for updates as list
-		beaMetaParams <- beaR::beaGet(beaMetaTimeSpec, asList = TRUE, asTable = FALSE, isMeta = TRUE)	
+		beaMetaParams <- bea.R::beaGet(beaMetaTimeSpec, asList = TRUE, asTable = FALSE, isMeta = TRUE)	
 		
 		beaMetaInfo <- data.table::as.data.table(beaMetaParams$ParamValue)
 		

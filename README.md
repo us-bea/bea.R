@@ -1,10 +1,18 @@
+## Note: Library has been renamed from "beaR" to "bea.R"
+
 # Instructions
 
 Thank you for taking the time to test BEA's R library. The library is intended to make it easier to retrieve and work with BEA data. 
 
 After you test the library, please send any feedback and, if possible, code that you have written to Developers@bea.gov (feedback and code can be provided together as an .Rmd file, or can be provided separately, in the formats of your preference).
+## To Install and Load the stable, published version of the bea.R Library (recommended)
 
-## To Install and Load the beaR Library 
+    ```r
+    install.packages('bea.R')
+    library(bea.R)
+    ```
+
+## To Install and Load the development version of the bea.R Library (not recommended)
 
 **Please take the following steps:** 
 
@@ -19,18 +27,18 @@ After you test the library, please send any feedback and, if possible, code that
     library(devtools)
     ```
 
-3. Install the beaR library from the BEA GitHub repo: 
+3. Install the bea.R library from the BEA GitHub repo: 
     ```r
     httr::set_config( config( ssl_verifypeer = 0L ))           #zero L
-    devtools::install_github('us-bea/beaR')
+    devtools::install_github('us-bea/bea.R')
     ```
 
 
-4. Load beaR using the library function.
+4. Load bea.R using the library function.
     ```r
-    library(beaR)
+    library(bea.R)
     ```
-You are now ready to use beaR! 
+You are now ready to use bea.R! 
 
 ## To Get Started
 You must first  [register for an API key](http://www.bea.gov/API/signup/index.cfm) from BEA by providing your name and email address. The key will be emailed to you. 
@@ -43,7 +51,7 @@ beaKey 	<- 'YOUR 36-DIGIT API KEY'
 
 ## To Use beaSearch and beaGet
 
-Currently, the beaR library offers two main methods: beaSearch and beaGet. 
+Currently, the bea.R library offers two main methods: beaSearch and beaGet. 
 
 ### beaSearch
 This method allows you to search for BEA data by keyword. For example, to find all datasets in which the term "personal consumption" appears, use the following:  
@@ -63,7 +71,7 @@ The contents of this function are automatically updated using a new metadata com
 
 If you do not wish to automatically update the metadata (e.g., you have conducted a study using the search function), simply searching for the term without also passing your key to the function will do a search only using your locally stored version.
 
-However, *this approach is not advised.* If you would like to retain metadata for posterity, please copy it from the "beaR/data" area of your .libPaths() directory to local storage elsewhere on your machine; this will help prevent accidental overwrite, and will not interfere with the "freshness" of your searches.
+However, *this approach is not advised.* If you would like to retain metadata for posterity, please copy it from the "bea.R/data" area of your .libPaths() directory to local storage elsewhere on your machine; this will help prevent accidental overwrite, and will not interfere with the "freshness" of your searches.
 
 ### beaGet
 
@@ -103,7 +111,7 @@ By default, asWide = TRUE and iTableStyle = TRUE, as this format is the most sim
 
 ## To Use beaViz  
 
-The beaR library also includes an experimental method to create a visual dashboard. This method is still under development. Currently, it is designed to work with the standard R Console interface—not with other interfaces such as R Studio. (However, if you want to experiment with beaViz in R Studio, click on "Open in Browser" at the top of pop-up box after you execute the beaViz method.  
+The bea.R library also includes an experimental method to create a visual dashboard. This method is still under development. Currently, it is designed to work with the standard R Console interface—not with other interfaces such as R Studio. (However, if you want to experiment with beaViz in R Studio, click on "Open in Browser" at the top of pop-up box after you execute the beaViz method.  
 
 The beaViz method allows you to pass a variable generated from beaGet to create a dashboard. To use the "beaPayload" example given above, enter the following command:
 
@@ -114,8 +122,8 @@ Please note that beaViz is currently only available for use with the NIPA and NI
 BEA is open to any thoughts you may have about visually representing BEA data.
 
 
-# About beaR
-beaR is a library for use with BEA’s API and the R programming language, version 3.2.1 or higher.
+# About bea.R
+bea.R is a library for use with BEA’s API and the R programming language, version 3.2.1 or higher.
 
 This library serves two core purposes:
 
@@ -129,6 +137,6 @@ Other features of the library exist mainly as intermediate methods or are in ear
 # Disclaimer
 The United States Department of Commerce (DOC) GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. DOC has relinquished control of the information and no longer has responsibility to protect the integrity, confidentiality, or availability of the information. Any claims against the Department of Commerce stemming from the use of its GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.
 
-Use of this library will result in data being stored on users' local machines. Specifically, local copies of BEA API metadata will be stored and automatically updated in the .libPaths() "/beaR/data" directory in order to improve performance of beaSearch.
+Use of this library will result in data being stored on users' local machines. Specifically, local copies of BEA API metadata will be stored and automatically updated in the .libPaths() "/bea.R/data" directory in order to improve performance of beaSearch.
 
 <aut: Andrea Julca>

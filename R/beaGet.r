@@ -84,13 +84,13 @@ beaGet <- function(beaSpec, asString=FALSE, asList=FALSE, asTable=TRUE, asWide=T
 		if (asTable) {
 			userWide <- asWide
 			userTabStyle <- iTableStyle
-			beaResults <- beaR::bea2Tab(beaPayload, asWide = userWide, iTableStyle = userTabStyle)
+			beaResults <- bea.R::bea2Tab(beaPayload, asWide = userWide, iTableStyle = userTabStyle)
 			return(beaResults)
 		}
 		else {
 			if(asList) {
 				metaMethod <- isMeta
-				beaResponse <- beaR::bea2List(beaPayload, isMeta = metaMethod)
+				beaResponse <- bea.R::bea2List(beaPayload, isMeta = metaMethod)
 				return(beaResponse)
 				}
 			else {

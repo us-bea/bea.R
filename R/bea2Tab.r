@@ -20,7 +20,7 @@
 bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 	requireNamespace('data.table', quietly = TRUE)
 	if('response' %in% class(beaPayload)){
-		beaResponse <- beaR::bea2List(beaPayload)
+		beaResponse <- bea.R::bea2List(beaPayload)
 	} else {
 		beaResponse <- beaPayload
 	}

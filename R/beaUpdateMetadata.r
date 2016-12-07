@@ -50,7 +50,7 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	)
 	
 	#Get as httr response
-	beaResponse <- beaR::beaGet(beaMetaSpecs, asList = FALSE, asTable = FALSE, isMeta = TRUE)	
+	beaResponse <- bea.R::beaGet(beaMetaSpecs, asList = FALSE, asTable = FALSE, isMeta = TRUE)	
 	
 	#Check to ensure it is httr response
 	if(class(beaResponse) != 'response'){
