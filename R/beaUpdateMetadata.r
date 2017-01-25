@@ -59,7 +59,7 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	}
 	
 	lapply(datasetList, function(outdat){
-		try(file.remove(paste0(beaMetadataStore,'/', outdat, '.RData')), silent = TRUE)
+		try(suppressWarnings(file.remove(paste0(beaMetadataStore,'/', outdat, '.RData'))), silent = TRUE)
 	})
 
 	
