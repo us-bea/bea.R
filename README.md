@@ -1,4 +1,4 @@
-## Note: Library has been renamed from "beaR" to "bea.R"
+## Note: The RegionalIncome and RegionalProduct data sets will replace RegionalData at the end of May 2017. The "RegionalData" dataset will be discontinued at that time, and the documentation will be updated accordingly.
 
 # Instructions
 
