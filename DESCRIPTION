@@ -1,6 +1,6 @@
 Package: bea.R
 Title: Bureau of Economic Analysis API
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(person("Andrea", "Julca", role = c("aut", "cre"),
 		     email = c("Andrea.Julca@bea.gov")),
 				 person("Jeff", "Chen", role = "ctb"),
@@ -34,7 +34,7 @@ Imports:
 		colorspace,
 		plyr,
 		yaml
-Description:   Provides an R interface for the Bureau of Economic Analysis (BEA) 
+Description: Provides an R interface for the Bureau of Economic Analysis (BEA) 
 		API (see <http://www.bea.gov/API/bea_web_service_api_user_guide.htm> for 
 		more information) that serves two core purposes - 
     1. To Extract/Transform/Load data [beaGet()] from the BEA API as R-friendly 
@@ -48,4 +48,4 @@ Description:   Provides an R interface for the Bureau of Economic Analysis (BEA)
 URL: https://github.com/us-bea/beaR 
 License: CC0
 LazyData: no
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

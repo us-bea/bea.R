@@ -33,7 +33,8 @@ beaUpdateMetadata <- function(datasetList, beaKey){
  'Parameter'				<- NULL
  'ParamValue'				<- NULL
 
-	#datasetList <- list('nipa','niunderlyingdetail','fixedassets','regionaldata','regionalproduct','regionalincome')
+	#datasetList <- list('nipa','niunderlyingdetail','fixedassets','regionalproduct','regionalincome')
+	#update as of 2017-07-12: 'regionaldata' dataset removed from API, merged into regionalproduct and regionalincome
 	
 	requireNamespace('data.table', quietly = TRUE)
 	requireNamespace('httr', quietly = TRUE)
@@ -184,22 +185,26 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	#Regional data: Treated differently from National data 
 
 	#Set "RegionalData"
-	if('regionaldata' %in% tolower(datasetList)){try({
-	
-		rdatMDU <- metasetInfo[tolower(Datasetname) == 'regionaldata', MetaDataUpdated]
-		rdatParam <- metaList$BEAAPI$Datasets$Parameter[[grep('regionaldata', tolower(metaList$BEAAPI$Datasets$Datasetname), fixed=T)]]
-		#rbindlist(rdatParam[[1]])[ParamValue != 'NULL']
-		rdatKeys <- as.data.table(rdatParam$Keycode$ParamValue[[1]])
-		rdatKeys[, Parameter := 'Keycode']
-		rdatFips <- as.data.table(rdatParam$GeoFIPS$ParamValue[[2]])
-		rdatFips[, Parameter := 'GeoFIPS']
-	
-		rdatIndex <- rbindlist(list(rdatKeys, rdatFips), use.names = TRUE)
-		rdatIndex[, DatasetName := 'RegionalData']
-		rdatIndex[, MetaDataUpdated := rdatMDU]
-	
-		save(rdatIndex, file=paste0(beaMetadataStore, '/RegionalData.RData'))
-	})}
+	if('regionaldata' %in% tolower(datasetList)){
+		message('The RegionalData dataset has been removed from the API; please use RegionalIncome and RegionalProduct instead.');
+		return('The RegionalData dataset has been removed from the API; please use RegionalIncome and RegionalProduct instead.');
+#	try({
+#	
+#		rdatMDU <- metasetInfo[tolower(Datasetname) == 'regionaldata', MetaDataUpdated]
+#		rdatParam <- metaList$BEAAPI$Datasets$Parameter[[grep('regionaldata', tolower(metaList$BEAAPI$Datasets$Datasetname), fixed=T)]]
+#		#rbindlist(rdatParam[[1]])[ParamValue != 'NULL']
+#		rdatKeys <- as.data.table(rdatParam$Keycode$ParamValue[[1]])
+#		rdatKeys[, Parameter := 'Keycode']
+#		rdatFips <- as.data.table(rdatParam$GeoFIPS$ParamValue[[2]])
+#		rdatFips[, Parameter := 'GeoFIPS']
+#	
+#		rdatIndex <- rbindlist(list(rdatKeys, rdatFips), use.names = TRUE)
+#		rdatIndex[, DatasetName := 'RegionalData']
+#		rdatIndex[, MetaDataUpdated := rdatMDU]
+#	
+#		save(rdatIndex, file=paste0(beaMetadataStore, '/RegionalData.RData'))
+#	})
+	}
 	
 	#Dataset "RegionalProduct"
 	if('regionalproduct' %in% tolower(datasetList)){try({
@@ -219,7 +224,7 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		rprdIndex[, MetaDataUpdated := rprdMDU]
 		
 		save(rprdIndex, file=paste0(beaMetadataStore, '/RegionalProduct.RData'))
-	})}	
+	}, silent = TRUE)}	
 	
 	#Dataset "RegionalIncome"
 	if('regionalincome' %in% tolower(datasetList)){try({
@@ -239,7 +244,7 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		rincIndex[, MetaDataUpdated := rincMDU]
 	
 	save(rincIndex, file=paste0(beaMetadataStore, '/RegionalIncome.RData'))
-	})}
+	}, silent = TRUE)}	
 	
 #	if(length(datasetList) > length(metasetInfo[, Datasetname])){
 #		staleList <- datasetList[
