@@ -1,4 +1,4 @@
-## Note: The RegionalIncome and RegionalProduct data sets will replace RegionalData at the end of May 2017. The "RegionalData" dataset will be discontinued at that time, and the documentation will be updated accordingly.
+## Note: The RegionalIncome and RegionalProduct data sets replaced RegionalData at the end of May 2017. The "RegionalData" dataset has been discontinued, and the package was patched (v1.0.2) to update the beaSearch function accordingly.
 
 # Instructions
 
