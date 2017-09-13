@@ -1,11 +1,11 @@
 Package: bea.R
 Title: Bureau of Economic Analysis API
-Version: 1.0.2
-Authors@R: c(person("Andrea", "Julca", role = c("aut", "cre"),
+Version: 1.0.3
+Authors@R: c(person("Andrea", "Batch", role = c("aut", "cre"),
 		     email = c("Andrea.Julca@bea.gov")),
 				 person("Jeff", "Chen", role = "ctb"),
 				 person("Walt", "Kampas", role = "ctb"))
-Author: Andrea Julca [aut, cre], 
+Author: Andrea Batch [aut, cre], 
 		Jeff Chen [ctb],
 		Walt Kampas [ctb]
 Depends:

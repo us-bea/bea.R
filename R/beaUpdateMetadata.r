@@ -72,7 +72,7 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	#The line below should be suppressed if fixed - JSON was malformed due to missing commas
 	#respStr <- gsub('}{', '},{', respStr, fixed = TRUE)
 	metaList <-jsonlite::fromJSON(respStr)
-	metasetInfo <- as.data.table(metaList$BEAAPI$Datasets)
+	metasetInfo <- data.table::as.data.table(metaList$BEAAPI$Datasets)
 	if(dim(metasetInfo)[1] == 0){
 		warning('API metadata not returned.  Verify that you are using a valid API key, represented as a character string.')
 		return('API metadata not returned.  Verify that you are using a valid API key, represented as a character string.')
@@ -83,14 +83,19 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	 #And do it separately for each dataset
 	if('nipa' %in% tolower(datasetList)){try({
 		nipaMDU <- metasetInfo[tolower(Datasetname) == 'nipa', MetaDataUpdated]
-		nipaTabs <- rbindlist(metasetInfo[tolower(Datasetname) == 'nipa', APITable])
+		nipaTabs <- data.table::rbindlist(metasetInfo[tolower(Datasetname) == 'nipa', APITable])
 		nipaTabs[, DatasetName := 'NIPA']
 		
-		nipaRows <- rbindlist(lapply(nipaTabs[, TableID], function(thisTab){
-			tabPart <- nipaTabs[TableID == thisTab, as.data.table(Line[[1]])]
-			tabPart[, TableID := thisTab]
+		#Backend issue: Sometimes, NIPA table 38 has a NULL table for the line descriptions. Handle and warn the user. 
+		handler <- c()
+		
+		nipaRowList <- lapply(nipaTabs[, TableID], function(thisTab){
+			tabPart <- nipaTabs[TableID == thisTab, data.table::as.data.table(Line[[1]])]
+			tryCatch({tabPart[, TableID := thisTab]}, error = function(e){handler <<- c(handler, paste0(e, ': NIPA Table ', thisTab))})
 			return(tabPart)
-		}))
+		})
+		
+		nipaRows <- data.table::rbindlist(nipaRowList, use.names = TRUE)
 		
 		data.table::setkey(nipaTabs, key = TableID)
 		data.table::setkey(nipaRows, key = TableID)
@@ -116,11 +121,11 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 
 	if('niunderlyingdetail' %in% tolower(datasetList)){try({
 		niudMDU <- metasetInfo[tolower(Datasetname) == 'niunderlyingdetail', MetaDataUpdated]
-		niudTabs <- rbindlist(metasetInfo[tolower(Datasetname) == 'niunderlyingdetail', APITable])
+		niudTabs <- data.table::rbindlist(metasetInfo[tolower(Datasetname) == 'niunderlyingdetail', APITable])
 		niudTabs[, DatasetName := 'NIUnderlyingDetail']
 		
-		niudRows <- rbindlist(lapply(niudTabs[, TableID], function(thisTab){
-			tabPart <- niudTabs[TableID == thisTab, as.data.table(Line[[1]])]
+		niudRows <- data.table::rbindlist(lapply(niudTabs[, TableID], function(thisTab){
+			tabPart <- niudTabs[TableID == thisTab, data.table::as.data.table(Line[[1]])]
 			tabPart[, TableID := thisTab]
 			return(tabPart)
 		}))
@@ -150,11 +155,11 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	
 	if('fixedassets' %in% tolower(datasetList)){try({
 		fixaMDU <- metasetInfo[tolower(Datasetname) == 'fixedassets', MetaDataUpdated]
-		fixaTabs <- rbindlist(metasetInfo[tolower(Datasetname) == 'fixedassets', APITable])
+		fixaTabs <- data.table::rbindlist(metasetInfo[tolower(Datasetname) == 'fixedassets', APITable])
 		fixaTabs[, DatasetName := 'FixedAssets']
 		
-		fixaRows <- rbindlist(lapply(fixaTabs[, TableID], function(thisTab){
-			tabPart <- fixaTabs[TableID == thisTab, as.data.table(Line[[1]])]
+		fixaRows <- data.table::rbindlist(lapply(fixaTabs[, TableID], function(thisTab){
+			tabPart <- fixaTabs[TableID == thisTab, data.table::as.data.table(Line[[1]])]
 			tabPart[, TableID := thisTab]
 			return(tabPart)
 		}))
@@ -212,10 +217,10 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		rprdParams <- metaList$BEAAPI$Datasets$Parameters[[grep('regionalproduct', tolower(metaList$BEAAPI$Datasets$Datasetname), fixed=T)]]
 		rprdParNms <- attributes(rprdParams)$names
 		
-		rprdPages <- rbindlist(rprdParams)[ParamValue != 'NULL', ParamValue]
+		rprdPages <- data.table::rbindlist(rprdParams)[ParamValue != 'NULL', ParamValue]
 
-		rprdIndex <- rbindlist(lapply(1:length(rprdPages), function(x){
-			rprdDT <- as.data.table(rprdPages[[x]])
+		rprdIndex <- data.table::rbindlist(lapply(1:length(rprdPages), function(x){
+			rprdDT <- data.table::as.data.table(rprdPages[[x]])
 			rprdDT[, Parameter := rprdParNms[x]]
 			return(rprdDT)
 		}))
@@ -232,10 +237,10 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		rincParams <- metaList$BEAAPI$Datasets$Parameters[[grep('regionalincome', tolower(metaList$BEAAPI$Datasets$Datasetname), fixed=T)]]
 		rincParNms <- attributes(rincParams)$names
 		
-		rincPages <- rbindlist(rincParams)[ParamValue != 'NULL', ParamValue]
+		rincPages <- data.table::rbindlist(rincParams)[ParamValue != 'NULL', ParamValue]
 	
-		rincIndex <- rbindlist(lapply(1:length(rincPages), function(x){
-			rincDT <- as.data.table(rincPages[[x]])
+		rincIndex <- data.table::rbindlist(lapply(1:length(rincPages), function(x){
+			rincDT <- data.table::as.data.table(rincPages[[x]])
 			rincDT[, Parameter := rincParNms[x]]
 			return(rincDT)
 		}))
