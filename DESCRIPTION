@@ -1,6 +1,6 @@
 Package: bea.R
 Title: Bureau of Economic Analysis API
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: c(person("Andrea", "Batch", role = c("aut", "cre"),
 		     email = c("Andrea.Julca@bea.gov")),
 				 person("Jeff", "Chen", role = "ctb"),
@@ -8,32 +8,11 @@ Authors@R: c(person("Andrea", "Batch", role = c("aut", "cre"),
 Author: Andrea Batch [aut, cre], 
 		Jeff Chen [ctb],
 		Walt Kampas [ctb]
-Depends:
-    R (>= 3.2.1), 
-		data.table
-Imports: 
-		httr,
-		DT,
-		shiny, 
-		jsonlite,
-		googleVis,
-		shinydashboard,
-		ggplot2, 
-		stringr,
-		chron,
-		gtable,
-		scales,
-		htmltools,
-		httpuv,
-		xtable,
-		stringi,
-		magrittr,
-		htmlwidgets,
-		Rcpp,
-		munsell,
-		colorspace,
-		plyr,
-		yaml
+Depends: R (>= 3.2.1), data.table
+Imports: httr, DT, shiny, jsonlite, googleVis, shinydashboard, ggplot2,
+        stringr, chron, gtable, scales, htmltools, httpuv, xtable,
+        stringi, magrittr, htmlwidgets, Rcpp, munsell, colorspace,
+        plyr, yaml
 Description: Provides an R interface for the Bureau of Economic Analysis (BEA) 
 		API (see <http://www.bea.gov/API/bea_web_service_api_user_guide.htm> for 
 		more information) that serves two core purposes - 
@@ -45,7 +24,11 @@ Description: Provides an R interface for the Bureau of Economic Analysis (BEA)
 		or are in early stages of development.
 		Important Note - You must have an API key to use this library.  
 		Register for a key at <http://www.bea.gov/API/signup/index.cfm> .
-URL: https://github.com/us-bea/beaR 
+URL: https://github.com/us-bea/beaR
 License: CC0
 LazyData: no
 RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2017-12-07 18:11:52 UTC; ODACJ1
+Maintainer: Andrea Batch <Andrea.Julca@bea.gov>
+Built: R 3.4.1; ; 2017-12-07 18:14:06 UTC; windows
