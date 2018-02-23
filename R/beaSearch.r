@@ -220,7 +220,7 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 					paste0(
 						"beaGet(list('UserID' = '[your_key]', 'Method' = 'GetData', 'DatasetName' = '",
 						DatasetName, 
-						"', 'TableID' = '", 
+						"', 'TableName' = '", 
 						TableID, 
 						"', ...))"
 					)

@@ -85,7 +85,11 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		nipaMDU <- metasetInfo[tolower(Datasetname) == 'nipa', MetaDataUpdated]
 		nipaTabs <- data.table::rbindlist(metasetInfo[tolower(Datasetname) == 'nipa', APITable])
 		nipaTabs[, DatasetName := 'NIPA']
-		
+		#TableIDN has become obsolete; we should no longer overwrite to rename
+		#setnames(nipaTabs, old = names(nipaTabs)[grepl('tableidn', tolower(names(nipaTabs)),fixed = T)], new = 'TableID')
+		#...however, there does appear to be an issue with capitalization
+		setnames(nipaTabs, old = names(nipaTabs)[tolower(names(nipaTabs)) == 'tableid'], new = 'TableID')		
+	
 		#Backend issue: Sometimes, NIPA table 38 has a NULL table for the line descriptions. Handle and warn the user. 
 		handler <- c()
 		
@@ -123,7 +127,11 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		niudMDU <- metasetInfo[tolower(Datasetname) == 'niunderlyingdetail', MetaDataUpdated]
 		niudTabs <- data.table::rbindlist(metasetInfo[tolower(Datasetname) == 'niunderlyingdetail', APITable])
 		niudTabs[, DatasetName := 'NIUnderlyingDetail']
-		
+		#TableIDN has become obsolete; we should no longer overwrite to rename
+		#setnames(niudTabs, old = names(niudTabs)[grepl('tableidn', tolower(names(niudTabs)),fixed = T)], new = 'TableID')
+		#...however, there does appear to be an issue with capitalization
+		setnames(niudTabs, old = names(niudTabs)[tolower(names(niudTabs)) == 'tableid'], new = 'TableID')		
+
 		niudRows <- data.table::rbindlist(lapply(niudTabs[, TableID], function(thisTab){
 			tabPart <- niudTabs[TableID == thisTab, data.table::as.data.table(Line[[1]])]
 			tabPart[, TableID := thisTab]
@@ -157,6 +165,10 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 		fixaMDU <- metasetInfo[tolower(Datasetname) == 'fixedassets', MetaDataUpdated]
 		fixaTabs <- data.table::rbindlist(metasetInfo[tolower(Datasetname) == 'fixedassets', APITable])
 		fixaTabs[, DatasetName := 'FixedAssets']
+		#No TableIDN here
+		#setnames(fixaTabs, old = names(fixaTabs)[grepl('tableidn', tolower(names(fixaTabs)),fixed = T)], new = 'TableID')
+		#...however, there does appear to be an issue with capitalization
+		setnames(fixaTabs, old = names(fixaTabs)[tolower(names(fixaTabs)) == 'tableid'], new = 'TableID')		
 		
 		fixaRows <- data.table::rbindlist(lapply(fixaTabs[, TableID], function(thisTab){
 			tabPart <- fixaTabs[TableID == thisTab, data.table::as.data.table(Line[[1]])]
