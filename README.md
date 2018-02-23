@@ -1,6 +1,7 @@
 ## Patch 1.0.5 Note: The parameter used to make a beaGet() call for NIPA and NIUnderlyingDetail data sets have changed; "TableID" has been discontinued, and "TableName" has been added, with parameter values that differ from the obsolete TableID values.
 
 To find the new parameters to use with TableName, use any one of the following:
+
     ```r
     beaSearch('NIPA', '[your 36-digit BEA API key]') 
     beaParamVals('[your 36-digit BEA API key]', 'NIPA', 'TableName')
