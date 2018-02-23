@@ -1,4 +1,14 @@
-## Note: The RegionalIncome and RegionalProduct data sets replaced RegionalData at the end of May 2017. The "RegionalData" dataset has been discontinued, and the package was patched (v1.0.2) to update the beaSearch function accordingly.
+## Patch 1.0.5 Note: The parameter used to make a beaGet() call for NIPA and NIUnderlyingDetail data sets have changed; "TableID" has been discontinued, and "TableName" has been added, with parameter values that differ from the obsolete TableID values.
+
+To find the new parameters to use with TableName, use any one of the following:
+    ```r
+    beaSearch('NIPA', '[your 36-digit BEA API key]') 
+    beaParamVals('[your 36-digit BEA API key]', 'NIPA', 'TableName')
+    beaSearch('NIUnderlyingDetail', '[your 36-digit BEA API key]') 
+    beaParamVals('[your 36-digit BEA API key]', 'NIUnderlyingDetail', 'TableName')
+    ```
+
+#### Patch 1.0.2 Note: The RegionalIncome and RegionalProduct data sets replaced RegionalData at the end of May 2017. The "RegionalData" dataset has been discontinued, and the package was patched (v1.0.2) to update the beaSearch function accordingly.
 
 # Instructions
 
@@ -82,7 +92,7 @@ beaSpecs <- list(
 	'UserID' = beaKey ,
 	'Method' = 'GetData',
 	'datasetname' = 'NIPA',
-	'TableID' = '66',
+	'TableName' = 'T20305',
 	'Frequency' = 'Q',
 	'Year' = 'X',
 	'ResultFormat' = 'json'
