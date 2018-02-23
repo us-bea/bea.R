@@ -251,14 +251,15 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 					paste0(
 						"beaGet(list('UserID' = '[your_key]', 'Method' = 'GetData', 'DatasetName' = '",
 						DatasetName, 
-						"', 'TableID' = '", 
+						"', 'TableName' = '", 
 						TableID, 
 						"', ...))"
 					)
 			]
 			
-		
-		
+		#FixedAssets is different from NIPA and NIUnderlyingDetail; handler here
+		nPerfectMatch[tolower(DatasetName) == 'fixedassets', apiCall := gsub("', 'TableName' = '", "', 'TableID' = '", apiCall, fixed = T)]
+		nReasonableMatch[tolower(DatasetName) == 'fixedassets', apiCall := gsub("', 'TableName' = '", "', 'TableID' = '", apiCall, fixed = T)]
 			
 			
 			
