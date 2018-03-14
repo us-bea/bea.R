@@ -23,7 +23,7 @@ Thank you for using BEA's R library. The library is intended to make it easier t
 After you test the library, please send any feedback and, if possible, code that you have written to Developers@bea.gov (feedback and code can be provided together as an .Rmd file, or can be provided separately, in the formats of your preference).
 ## To Install and Load the stable, published version of the bea.R Library (recommended)
 
-    ```r
+    ```R
     install.packages('bea.R')
     library(bea.R)
     ```
