@@ -23,37 +23,37 @@ Thank you for using BEA's R library. The library is intended to make it easier t
 After you test the library, please send any feedback and, if possible, code that you have written to Developers@bea.gov (feedback and code can be provided together as an .Rmd file, or can be provided separately, in the formats of your preference).
 ## To Install and Load the stable, published version of the bea.R Library (recommended)
 
-    ```R
+```R
     install.packages('bea.R')
     library(bea.R)
-    ```
+```
 
 ## To Install and Load the development version of the bea.R Library (not recommended)
 
 **Please take the following steps:** 
 
 1. Run the following line of code to install the 'httr' and 'devtools' packages:
-    ```r
+```r
     install.packages(c('devtools', 'httr'))
-    ```
+```
 
 2. Load the packages listed in Step 1 using the 'library' function:
-    ```r
+```r
     library(httr)
     library(devtools)
-    ```
+```
 
 3. Install the bea.R library from the BEA GitHub repo: 
-    ```r
+```r
     httr::set_config( config( ssl_verifypeer = 0L ))           #zero L
     devtools::install_github('us-bea/bea.R')
-    ```
+```
 
 
 4. Load bea.R using the library function.
-    ```r
+```r
     library(bea.R)
-    ```
+```
 You are now ready to use bea.R! 
 
 ## To Get Started
