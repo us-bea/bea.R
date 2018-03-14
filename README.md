@@ -6,7 +6,7 @@
 
 To find the new parameters to use with TableName, use any one of the following:
 
-    ```r
+    ```R
     beaSearch('NIPA', '[your 36-digit BEA API key]') 
     beaParamVals('[your 36-digit BEA API key]', 'NIPA', 'TableName')
     beaSearch('NIUnderlyingDetail', '[your 36-digit BEA API key]') 
