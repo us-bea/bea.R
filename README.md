@@ -1,4 +1,4 @@
-# Special notes
+# Patch/issue notes
 
 *GetParameterValuesFiltered method for list of parameters:* If your request returns the error message "The dataset requested requires parameters that were missing from the request" and the `beaParamVals()` method returns a very large number of results, [see the help request here](https://github.com/us-bea/bea.R/pull/5) for an example of how to use `beaGet()` to return a filtered list of parameters.
 
