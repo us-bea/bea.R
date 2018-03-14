@@ -1,3 +1,5 @@
+# Special notes
+
 *GetParameterValuesFiltered method for list of parameters:* If your request returns the error message "The dataset requested requires parameters that were missing from the request" and the `beaParamVals()` method returns a very large number of results, [see the help request here](https://github.com/us-bea/bea.R/pull/5) for an example of how to use `beaGet()` to return a filtered list of parameters.
 
 *Patch 1.0.5 Note:* The parameter used to make a beaGet() call for NIPA and NIUnderlyingDetail data sets have changed as of February 2018. "TableID" has been discontinued, and "TableName" has been added, with parameter values that differ from the obsolete TableID values.
