@@ -1,4 +1,6 @@
-## Patch 1.0.5 Note: The parameter used to make a beaGet() call for NIPA and NIUnderlyingDetail data sets have changed as of February 2018. "TableID" has been discontinued, and "TableName" has been added, with parameter values that differ from the obsolete TableID values.
+*GetParameterValuesFiltered method for list of parameters:* If your request returns the error message "The dataset requested requires parameters that were missing from the request" and the `beaParamVals()` method returns a very large number of results, [see the help request here](https://github.com/us-bea/bea.R/pull/5) for an example of how to use `beaGet()` to return a filtered list of parameters.
+
+*Patch 1.0.5 Note:* The parameter used to make a beaGet() call for NIPA and NIUnderlyingDetail data sets have changed as of February 2018. "TableID" has been discontinued, and "TableName" has been added, with parameter values that differ from the obsolete TableID values.
 
 To find the new parameters to use with TableName, use any one of the following:
 
@@ -9,7 +11,8 @@ To find the new parameters to use with TableName, use any one of the following:
     beaParamVals('[your 36-digit BEA API key]', 'NIUnderlyingDetail', 'TableName')
     ```
 
-### Patch 1.0.2 Note: The RegionalIncome and RegionalProduct data sets replaced RegionalData at the end of May 2017. The "RegionalData" dataset has been discontinued, and the package was patched (v1.0.2) to update the beaSearch function accordingly.
+*Patch 1.0.2 Note:* The RegionalIncome and RegionalProduct data sets replaced RegionalData at the end of May 2017. The "RegionalData" dataset has been discontinued, and the package was patched (v1.0.2) to update the beaSearch function accordingly.
+
 
 # Instructions
 
