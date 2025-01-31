@@ -7,8 +7,8 @@
 #' @import httr data.table
 #' @importFrom jsonlite fromJSON
 #' @export
-#' @examples
-#' beaUpdateMetadata(list('NIUnderlyingDetail', 'NIPA'), beaKey = 'yourAPIkey')
+#' @examplesIf interactive()  && Sys.getenv("BEA_API_KEY") != ""
+#' beaUpdateMetadata(list('NIUnderlyingDetail', 'NIPA'), beaKey = Sys.getenv("BEA_API_KEY"))
 
 
 beaUpdateMetadata <- function(datasetList, beaKey){

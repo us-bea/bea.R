@@ -7,8 +7,8 @@
 #' @return An object of class 'data.table' containing data from beaGet(...) with custom attributes(BDT)$params.
 #' @import data.table
 #' @export
-#' @examples
-#' userSpecList <- list('UserID' = 'yourKey' ,
+#' @examplesIf interactive()  && Sys.getenv("BEA_API_KEY") != ""
+#' userSpecList <- list('UserID' = Sys.getenv("BEA_API_KEY"),
 #'									'Method' = 'GetData',
 #'									'datasetname' = 'NIPA',
 #'									'Frequency' = 'A',

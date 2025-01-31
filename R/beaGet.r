@@ -10,8 +10,8 @@
 #' @return By default, an object of class 'list' of several dimensions. View list structure using 'str(yourList)'.
 #' @import httr
 #' @export
-#' @examples
-#' userSpecList <- list('UserID' = 'yourAPIKey' ,
+#' @examplesIf interactive()  && Sys.getenv("BEA_API_KEY") != ""
+#' userSpecList <- list('UserID' = Sys.getenv("BEA_API_KEY"),
 #'									'Method' = 'GetData',
 #'									'datasetname' = 'NIPA',
 #'									'Frequency' = 'A',

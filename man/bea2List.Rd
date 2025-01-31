@@ -18,7 +18,8 @@ An object of class 'list' of several dimensions. View list structure using 'str(
 Convert BEA API httr response payload to list
 }
 \examples{
-userSpecList <- list('UserID' = 'yourKey' ,
+\dontshow{if (interactive()  && Sys.getenv("BEA_API_KEY") != "") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+userSpecList <- list('UserID' = Sys.getenv("BEA_API_KEY"),
 								'Method' = 'GetData',
 								'datasetname' = 'NIPA',
 								'Frequency' = 'A',
@@ -26,4 +27,5 @@ userSpecList <- list('UserID' = 'yourKey' ,
 								'Year' = 'X')
 resp <- beaGet(userSpecList, asTable = FALSE)
 BL <- bea2List(resp)
+\dontshow{\}) # examplesIf}
 }

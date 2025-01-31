@@ -20,7 +20,8 @@ An object of class 'data.table' containing data from beaGet(...) with custom att
 Convert BEA API httr response or list payload to data.table. Also, converts LONG data frame (default API format - see bea2List results) to WIDE data (with years as columns) by default
 }
 \examples{
-userSpecList <- list('UserID' = 'yourKey' ,
+\dontshow{if (interactive()  && Sys.getenv("BEA_API_KEY") != "") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+userSpecList <- list('UserID' = Sys.getenv("BEA_API_KEY"),
 								'Method' = 'GetData',
 								'datasetname' = 'NIPA',
 								'Frequency' = 'A',
@@ -28,4 +29,5 @@ userSpecList <- list('UserID' = 'yourKey' ,
 								'Year' = 'X')
 resp <- beaGet(userSpecList)
 BDT <- bea2Tab(resp)
+\dontshow{\}) # examplesIf}
 }

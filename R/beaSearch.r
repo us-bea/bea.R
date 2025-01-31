@@ -9,8 +9,8 @@
 #' @import data.table
 #' @importFrom DT datatable
 #' @export
-#' @examples
-#' beaSearch('gross domestic product', asHtml = TRUE)
+#' @examplesIf interactive()  && Sys.getenv("BEA_API_KEY") != ""
+#' beaSearch('gross domestic product', beaKey = Sys.getenv("BEA_API_KEY"), asHtml = TRUE)
 
  beaSearch <- function(searchTerm, beaKey = NULL, asHtml = FALSE){
    warning('Note: This function is currently only able to search NIPA, NIUnderlyingDetail, and FixedAssets data.')

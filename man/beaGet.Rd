@@ -36,11 +36,13 @@ By default, an object of class 'list' of several dimensions. View list structure
 Pass list of user specifications (including API key) to return data from BEA API.
 }
 \examples{
-userSpecList <- list('UserID' = 'yourAPIKey' ,
+\dontshow{if (interactive()  && Sys.getenv("BEA_API_KEY") != "") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+userSpecList <- list('UserID' = Sys.getenv("BEA_API_KEY"),
 								'Method' = 'GetData',
 								'datasetname' = 'NIPA',
 								'Frequency' = 'A',
 								'TableID' = '68',
 								'Year' = 'X')
 BDT <- beaGet(userSpecList, asTable = TRUE)
+\dontshow{\}) # examplesIf}
 }

@@ -5,8 +5,8 @@
 #' @keywords metadata
 #' @return A metadata object of class 'list' of several dimensions. View list structure using 'str(yourList)'.
 #' @export
-#' @examples
-#' beaParams('yourAPIkey', 'NIPA')
+#' @examplesIf interactive()  && Sys.getenv("BEA_API_KEY") != ""
+#' beaParams(Sys.getenv("BEA_API_KEY"), 'NIPA')
 
 beaParams <- function(beaKey, setName) {
 	beaMetaSpecs <- list(

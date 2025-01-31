@@ -20,6 +20,8 @@ A metadata object of class 'list' of several dimensions. View list structure usi
 Gives list of values possible for a given dataset's parameters
 }
 \examples{
-beaParamVals('yourAPIkey', 'NIPA', 'keycode')
+\dontshow{if (interactive()  && Sys.getenv("BEA_API_KEY") != "") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+beaParamVals(Sys.getenv("BEA_API_KEY"), 'NIPA', 'keycode')
+\dontshow{\}) # examplesIf}
 }
 \keyword{metadata}
