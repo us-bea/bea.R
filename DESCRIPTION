@@ -8,21 +8,14 @@ Authors@R: c(person("Andrea", "Batch", role = c("aut", "cre"),
 Author: Andrea Batch [aut, cre], 
 		Jeff Chen [ctb],
 		Walt Kampas [ctb]
-Maintainer: Andrea Batch <andrea.batch@bea.gov>
+Maintainer: Andrea Batch <Andrea.Batch@bea.gov>
 Depends:
     R (>= 3.2.1), 
 		data.table
 Imports: 
 		httr,
 		DT,
-		jsonlite,
-		stringr,
-		xtable,
-		stringi,
-		magrittr,
-		Rcpp,
-		plyr,
-		yaml
+		jsonlite
 Description: Provides an R interface for the Bureau of Economic Analysis (BEA) 
 		API (see <http://www.bea.gov/API/bea_web_service_api_user_guide.htm> for 
 		more information) that serves two core purposes - 
