@@ -1,12 +1,12 @@
-#' Gives list of parameters possible for a given dataset 
-#' 
+#' Gives list of parameters possible for a given dataset
+#'
 #' @param beaKey Your API key
 #' @param setName Name of BEA dataset (e.g., 'NIPA')
 #' @keywords metadata
 #' @return A metadata object of class 'list' of several dimensions. View list structure using 'str(yourList)'.
 #' @export
-#' @examples 
-#' beaParams('yourAPIkey', 'RegionalData')
+#' @examplesIf interactive()  && Sys.getenv("BEA_API_KEY") != ""
+#' beaParams(Sys.getenv("BEA_API_KEY"), 'NIPA')
 
 beaParams <- function(beaKey, setName) {
 	beaMetaSpecs <- list(
@@ -16,7 +16,7 @@ beaParams <- function(beaKey, setName) {
 		'ResultFormat' = 'json'
 	)
 
-	beaResponse <- beaR::beaGet(beaMetaSpecs, asList = TRUE, asTable = FALSE, isMeta = TRUE)	
+	beaResponse <- bea.R::beaGet(beaMetaSpecs, asList = TRUE, asTable = FALSE, isMeta = TRUE)
 
 	return(beaResponse)
 }
