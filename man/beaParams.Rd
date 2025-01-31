@@ -18,6 +18,6 @@ A metadata object of class 'list' of several dimensions. View list structure usi
 Gives list of parameters possible for a given dataset
 }
 \examples{
-beaParams('yourAPIkey', 'RegionalData')
+beaParams('yourAPIkey', 'NIPA')
 }
 \keyword{metadata}

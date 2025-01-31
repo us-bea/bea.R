@@ -16,12 +16,10 @@
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
 
-local({
-    info <- loadingNamespaceInfo()
-    pkg <- info$pkgname
-    ns <- .getNamespace(as.name(pkg))
-    if (is.null(ns))
-        stop("cannot find namespace environment for ", pkg, domain = NA);
-    dbbase <- file.path(info$libname, pkg, "R", pkg)
+.onLoad <- function(libname, pkgname) {
+    ns <- .getNamespace(pkgname)
+    if (is.null(ns)) stop("cannot find namespace environment for ", pkgname, domain = NA)
+
+    dbbase <- file.path(libname, pkgname, "R", pkgname)
     lazyLoad(dbbase, ns, filter = function(n) n != ".__NAMESPACE__.")
-})
+}

@@ -1,37 +1,26 @@
 Package: bea.R
 Title: Bureau of Economic Analysis API
-Version: 1.0.6
+Version: 1.1.0
 Authors@R: c(person("Andrea", "Batch", role = c("aut", "cre"),
-		     email = c("Andrea.Julca@bea.gov")),
+		     email = c("Andrea.Batch@bea.gov")),
 				 person("Jeff", "Chen", role = "ctb"),
 				 person("Walt", "Kampas", role = "ctb"))
 Author: Andrea Batch [aut, cre], 
 		Jeff Chen [ctb],
 		Walt Kampas [ctb]
+Maintainer: Andrea Batch <andrea.batch@bea.gov>
 Depends:
     R (>= 3.2.1), 
 		data.table
 Imports: 
 		httr,
 		DT,
-		shiny, 
 		jsonlite,
-		googleVis,
-		shinydashboard,
-		ggplot2, 
 		stringr,
-		chron,
-		gtable,
-		scales,
-		htmltools,
-		httpuv,
 		xtable,
 		stringi,
 		magrittr,
-		htmlwidgets,
 		Rcpp,
-		munsell,
-		colorspace,
 		plyr,
 		yaml
 Description: Provides an R interface for the Bureau of Economic Analysis (BEA) 
@@ -48,4 +37,6 @@ Description: Provides an R interface for the Bureau of Economic Analysis (BEA)
 URL: https://github.com/us-bea/bea.R 
 License: CC0
 LazyData: no
-RoxygenNote: 6.0.1
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

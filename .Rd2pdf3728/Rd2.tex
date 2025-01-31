@@ -1,0 +1,66 @@
+\nonstopmode{}
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\makeatletter\@ifl@t@r\fmtversion{2018/04/01}{}{\usepackage[utf8]{inputenc}}\makeatother
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `bea.R'}}
+\par\bigskip{\large \today}
+\end{center}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdftitle = {bea.R: Bureau of Economic Analysis API}}}{}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdfauthor = {Andrea Batch}}}{}
+\begin{description}
+\raggedright{}
+\item[Title]\AsIs{Bureau of Economic Analysis API}
+\item[Version]\AsIs{1.1.0}
+\item[Author]\AsIs{Andrea Batch [aut, cre], 
+Jeff Chen [ctb],
+Walt Kampas [ctb]}
+\item[Maintainer]\AsIs{Andrea Batch }\email{andrea.batch@bea.gov}\AsIs{}
+\item[Depends]\AsIs{R (>= 3.2.1),
+data.table}
+\item[Imports]\AsIs{httr,
+DT,
+shiny,
+jsonlite,
+googleVis,
+shinydashboard,
+ggplot2,
+stringr,
+chron,
+gtable,
+scales,
+htmltools,
+httpuv,
+xtable,
+stringi,
+magrittr,
+htmlwidgets,
+Rcpp,
+munsell,
+colorspace,
+plyr,
+yaml}
+\item[Description]\AsIs{Provides an R interface for the Bureau of Economic Analysis (BEA) 
+            API (see <}\url{http://www.bea.gov/API/bea_web_service_api_user_guide.htm}\AsIs{> for 
+            more information) that serves two core purposes - 
+1. To Extract/Transform/Load data [beaGet()] from the BEA API as R-friendly 
+            formats in the user's work space [transformation done by default in beaGet() 
+            can be modified using optional parameters; see, too, bea2List(), bea2Tab()].
+            2. To enable the search of descriptive meta data [beaSearch()].
+            Other features of the library exist mainly as intermediate methods 
+            or are in early stages of development.
+            Important Note - You must have an API key to use this library.  
+            Register for a key at <}\url{http://www.bea.gov/API/signup/index.cfm}\AsIs{> .}
+\item[URL]\AsIs{}\url{https://github.com/us-bea/bea.R}\AsIs{}
+\item[License]\AsIs{CC0}
+\item[LazyData]\AsIs{no}
+\item[Encoding]\AsIs{UTF-8}
+\item[Roxygen]\AsIs{list(markdown = TRUE)}
+\item[RoxygenNote]\AsIs{7.3.2}
+\end{description}
+\Rdcontents{Contents}

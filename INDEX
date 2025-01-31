@@ -12,4 +12,3 @@ beaSearch               Search a selection of indexed BEA data table
 beaSets                 Returns a list of all datasets
 beaUpdateMetadata       Download BEA metadata into library/data folder
                         if needed
-beaViz                  Visualize BEA API response payload

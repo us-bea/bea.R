@@ -1,21 +1,22 @@
 #' Search a selection of indexed BEA data table names, series labels, and series codes.
-#' 
+#'
 #' @param searchTerm A word or phrase of class 'character' to be found in BEA datasets
 #' @param beaKey Character string representation of user API key. Necessary for first time use and updates; recommended for anything beyond one-off searches from the console.
 #' @param asHtml Option to return results as DT markup, viewable in browser.  Allows search WITHIN YOUR ALREADY-FILTERED RESULTS ONLY. Requires package 'DT' to be installed.
 #' @keywords search
-#' @description Searches indexed dataset table name, label, and series codes.  CAUTION: Currently only works with NATIONAL datasets (NIPA, NIUnderlyingDetail, FixedAssets), temporarily excluding FixedAssets, and REGIONAL datasets (RegionalProduct, RegionalIncome)
+#' @description Searches indexed dataset table name, label, and series codes.  CAUTION: Currently only searches within NATIONAL datasets (NIPA, NIUnderlyingDetail, FixedAssets).
 #' @return An object of class 'data.table' with information about all indexed sets in which the search term was found.
-#' @import data.table 
+#' @import data.table
 #' @importFrom DT datatable
 #' @export
-#' @examples 
+#' @examples
 #' beaSearch('gross domestic product', asHtml = TRUE)
 
- beaSearch <- function(searchTerm, beaKey = NULL, asHtml = FALSE){ 
-# beaSearch <- function(searchTerm, searchFilter = list(), justParents = FALSE, justChildren = FALSE){ 
-	if (is.null(beaKey)){warning('Searching without specifying beaKey, e.g., 
-	   beaSearch("tobacco", beaKey = "[your 36-character API key]") 
+ beaSearch <- function(searchTerm, beaKey = NULL, asHtml = FALSE){
+   warning('Note: This function is currently only able to search NIPA, NIUnderlyingDetail, and FixedAssets data.')
+# beaSearch <- function(searchTerm, searchFilter = list(), justParents = FALSE, justChildren = FALSE){
+	if (is.null(beaKey)){warning('Searching without specifying beaKey, e.g.,
+	   beaSearch("tobacco", beaKey = "[your 36-character API key]")
 is not recommended, as the key is needed to update locally stored metadata.')}
 #beaSearch throws spurious NOTEs on check() without this due to data.table Depends
  'LineDescription' <- NULL
@@ -46,50 +47,51 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 
 	requireNamespace('data.table', quietly = TRUE)
 	beaMetadataStore <- paste0(.libPaths()[1], '/beaR/data')
-	
+
 	beaMetaFiles <- list.files(path = beaMetadataStore, full.names = TRUE);
 	beaMetaFilesTimes <- file.info(beaMetaFiles, extra_cols = TRUE)
 	beaMetaFilesTimes$Dataset <- gsub(
-		paste0(beaMetadataStore, '/'), 
-		'', 
-		attributes(beaMetaFilesTimes)$row.names, 
+		paste0(beaMetadataStore, '/'),
+		'',
+		attributes(beaMetaFilesTimes)$row.names,
 		fixed=T
 	)
-	beaMetaMtime <- data.table::as.data.table(beaMetaFilesTimes)[, 
+	beaMetaMtime <- data.table::as.data.table(beaMetaFilesTimes)[,
 		.(
-			Dataset = gsub('.RData', '', Dataset, fixed=T), 
+			Dataset = gsub('.RData', '', Dataset, fixed=T),
 			mtime
 		)
 	]
 	data.table::setkey(beaMetaMtime, key = Dataset)
-	
+
 	#Add FixedAssets in future, but regionaldata has been merged into regionalproduct and regionalincome on the API
 	beaKnownMetaSets <- list(
 		'nipa',
 		'niunderlyingdetail',
-		'fixedassets',
+		'fixedassets'
+#		'regional' #Not yet implemented
+#   Deprecated
 #		'regionaldata',
-		'regionalproduct',
-		'regionalincome'
+#		'regionalproduct',
+#		'regionalincome'
 	)
 
 	if ((length(beaMetaFiles) == 0) & is.null(beaKey)){
-		warning(paste0('No API key provided and no local metadata storage detected in ', beaMetadataStore, '. 
-		Please provide a valid key to use beaSearch.'))
-		return(paste0('No API key provided and no local metadata storage detected in ', beaMetadataStore, '. Please provide a valid key to use beaSearch.'))
+		stop(paste0('No API key provided and no local metadata storage detected in ', beaMetadataStore, '.
+		Please provide a valid key to use beaSearch.'), call.=TRUE)
 	}
 #Check to see if this is the first time using the search function; if so, update all metadata currently handled.
-	if (length(beaMetaFiles) < 5){
+	if (length(beaMetaFiles) < 3){
 	#Create directory and make single call to get all metadata if there are missing meta .RData files
-		message('Creating first-time local copy of metadata for all datasets - only done once.')
-		message('Datasets will be updated only if timestamps indicate metadata obsolete in future searches,')
-		message("and only obsolete metadata sets will be updated (it's faster this way).")
+		message('Creating first-time local copy of metadata for all datasets.')
+		message('Datasets will be updated only if timestamps indicate metadata obsolete in future searches.')
+		#message("and only obsolete metadata sets will be updated (it's faster this way).")
 		message("")
 		dir.create(beaMetadataStore, showWarnings = FALSE, recursive = TRUE)
-		
+
 		#call function to update metadata - remember to specify beaR namespace
 		beaUpdateMetadata(beaKnownMetaSets,	beaKey)
-		
+
 	} else {
 	 if (!is.null(beaKey)){
 		#Make a "GetParameterValues" call to get timestamps of latest metadata update
@@ -101,31 +103,31 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 			'ResultFormat' = 'json'
 		)
 		#Get metadata response with timestamps we need to check for updates as list
-		beaMetaParams <- bea.R::beaGet(beaMetaTimeSpec, asList = TRUE, asTable = FALSE, isMeta = TRUE)	
-		
+		beaMetaParams <- bea.R::beaGet(beaMetaTimeSpec, asList = TRUE, asTable = FALSE, isMeta = TRUE)
+
 		beaMetaInfo <- data.table::as.data.table(beaMetaParams$ParamValue)
-		
+
 		data.table::setkey(beaMetaInfo, key = Dataset)
-		
+
 		tryCatch({
 		#If JSON has been updated, set check param = false
-		
+
 			timeCompare <- beaMetaMtime[beaMetaInfo][, .(
-				Dataset, 
-				mtime, 
+				Dataset,
+				mtime,
 				APImtime = as.POSIXct(
-					JSONUpdateDate, 
+					JSONUpdateDate,
 					format = "%Y-%m-%dT%H:%M:%S"
 				)
 			)][!is.na(APImtime)]
 
 			outdatedLocalMeta <- timeCompare[
-				(is.na(mtime) & !is.na(APImtime)) | 
+				(is.na(mtime) & !is.na(APImtime)) |
 				APImtime > mtime,
 				Dataset
 				]
-			
-			beaMetaFirstToCache <- FALSE 
+
+			beaMetaFirstToCache <- FALSE
 			if(length(timeCompare[is.na(APImtime) & Dataset %in% beaKnownMetaSets, Dataset]) > 0){
 				beaMetaFirstToCache <- TRUE
 			}
@@ -133,7 +135,7 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 		error = function(e){
 			beaMetaFirstToCache <- TRUE
 			beaUpdateMetadata(beaKnownMetaSets,	beaKey)
-		}, 
+		},
 		finally = {''})
 
 		if(length(outdatedLocalMeta[!tolower(outdatedLocalMeta) %in% beaKnownMetaSets]) > 0){
@@ -156,33 +158,36 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 
 	missingNat <- FALSE;
 	missingReg <- FALSE;
-	
+
 #Remove RegionalData, but add FixedAssets later
 	if(
-		length(grep('FixedAssets', beaMetaFiles, fixed = TRUE)) == 0 | 
-		length(grep('NIPA', beaMetaFiles, fixed = TRUE)) == 0 | 
-		length(grep('NIUnderlyingDetail', beaMetaFiles, fixed = TRUE)) == 0  
+		length(grep('FixedAssets', beaMetaFiles, fixed = TRUE)) == 0 |
+		length(grep('NIPA', beaMetaFiles, fixed = TRUE)) == 0 |
+		length(grep('NIUnderlyingDetail', beaMetaFiles, fixed = TRUE)) == 0
 	){
 		warning(paste0('National metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; searching regional metadata only.'))
 		missingNat <- TRUE;
 	}
-	
-	
+
+
 	if(
-#		length(grep('RegionalData', beaMetaFiles, fixed = TRUE)) == 0 | 
-		length(grep('RegionalProduct', beaMetaFiles, fixed = TRUE)) == 0 | 
-		length(grep('RegionalIncome', beaMetaFiles, fixed = TRUE)) == 0 
+	  #Not yet implemented
+	  length(grep('Regional', beaMetaFiles, fixed = TRUE)) == 0
+	  #Deprecated
+#		length(grep('RegionalData', beaMetaFiles, fixed = TRUE)) == 0 |
+#		length(grep('RegionalProduct', beaMetaFiles, fixed = TRUE)) == 0 |
+#		length(grep('RegionalIncome', beaMetaFiles, fixed = TRUE)) == 0
 	){
-			warning(paste0('Regional metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; searching national metadata only.'))
+	  #Suppress for now since it may always be missing.
+	    #warning(paste0('Regional metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; searching national metadata only.'))
 			missingReg <- TRUE;
 #			return(paste0('Metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; please try beaSearch again later.'))
-	} 
-	
+	}
+
 	if(missingNat && missingReg){
-		message(paste0('Metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; please try beaSearch again later.'))	
-		return(paste0('Metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; please try beaSearch again later.'))	
+		stop(paste0('Metadata is missing from ',beaMetadataStore,' and may be locked for updating on the BEA API; please try beaSearch again later.'), call.=TRUE)
 	} else {
-#Remove RegionalData permanently, but add FixedAssets later
+#Remove RegionalData permanently
 	try({
 		if(!missingNat){
 			load(paste0(beaMetadataStore, '/FixedAssets.RData'))
@@ -193,78 +198,78 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 			nationalIndex[, Account := 'National']
 			data.table::setkey(nationalIndex, key = DatasetName, TableID, LineNumber)
 
-		#Search national economic accounts for term 
+		#Search national economic accounts for term
 			nPerfectMatch <- nationalIndex[
 				grep(
-					tolower(searchTerm), 
+					tolower(searchTerm),
 					tolower(
 						paste(
-							LineDescription, 
-							TableName, 
-							SeriesCode, 
+							LineDescription,
+							TableName,
+							SeriesCode,
 							DatasetName
 						)
 					), fixed=TRUE
 				)
 			]
-		
+
 		#	nPerfectMatch[ ,
 		#		Parameter := NA
 		#	]
 		#	nPerfectMatch[ ,
 		#		Key := NA
 		#	]
-			
+
 			nPerfectMatch[,
-				apiCall := 
+				apiCall :=
 					paste0(
 						"beaGet(list('UserID' = '[your_key]', 'Method' = 'GetData', 'DatasetName' = '",
-						DatasetName, 
-						"', 'TableName' = '", 
-						TableID, 
+						DatasetName,
+						"', 'TableName' = '",
+						TableID,
 						"', ...))"
 					)
 			]
-			
-		
+
+
 			nReasonableMatch <- nationalIndex[
 				grep(
-					searchTerm, 
+					searchTerm,
 					paste(
-						LineDescription, 
-						TableName, 
-						SeriesCode, 
+						LineDescription,
+						TableName,
+						SeriesCode,
 						DatasetName
 					), ignore.case=TRUE
 				)
 			]
-		
+
 		#	nReasonableMatch[ ,
 		#		Parameter := NA
 		#	]
 		#	nReasonableMatch[ ,
 		#		Key := NA
 		#	]
-			
+
 			nReasonableMatch[,
-				apiCall := 
+				apiCall :=
 					paste0(
 						"beaGet(list('UserID' = '[your_key]', 'Method' = 'GetData', 'DatasetName' = '",
-						DatasetName, 
-						"', 'TableName' = '", 
-						TableID, 
+						DatasetName,
+						"', 'TableName' = '",
+						TableID,
 						"', ...))"
 					)
 			]
-			
+
 		#FixedAssets is different from NIPA and NIUnderlyingDetail; handler here
 		nPerfectMatch[tolower(DatasetName) == 'fixedassets', apiCall := gsub("', 'TableName' = '", "', 'TableID' = '", apiCall, fixed = T)]
 		nReasonableMatch[tolower(DatasetName) == 'fixedassets', apiCall := gsub("', 'TableName' = '", "', 'TableID' = '", apiCall, fixed = T)]
-			
-			
-			
+
+
+
 		}
-		
+
 		if(!missingReg){
 			load(paste0(beaMetadataStore, '/RegionalProduct.RData'))
 			load(paste0(beaMetadataStore, '/RegionalIncome.RData'))
@@ -274,22 +279,22 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 			regionalIndex <- rbindlist(list(rprdIndex, rincIndex), use.names = TRUE, fill=F)
 			try(regionalIndex[, Account := 'Regional'])
 			data.table::setkey(regionalIndex, key = DatasetName, Parameter, Key)
-		
-		
+
+
 			#Search regional accounts for the term
 			rPerfectMatch <- regionalIndex[
 				grep(
-					tolower(searchTerm), 
+					tolower(searchTerm),
 					tolower(
 						paste(
-							Desc, 
-							Key, 
+							Desc,
+							Key,
 							DatasetName
 						)
 					), fixed=TRUE
 				)
 			]
-		
+
 		#	rPerfectMatch[ ,
 		#		TableID := NA
 		#	]
@@ -308,34 +313,34 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 		#	rPerfectMatch[ ,
 		#		rootTabLine := NA
 		#	]
-			
-				
+
+
 			rPerfectMatch[,
-				apiCall := 
+				apiCall :=
 					paste0(
 						"beaGet(list('UserID' = '[your_key]', 'Method' = 'GetData', 'DatasetName' = '",
-						DatasetName, 
-						"', '", 
-						Parameter, 
-						"' = '", 
-						Key, 
+						DatasetName,
+						"', '",
+						Parameter,
+						"' = '",
+						Key,
 						"', ...))"
 					)
 			]
-			
-		
-		
+
+
+
 			rReasonableMatch <- regionalIndex[
 				grep(
-					searchTerm, 
+					searchTerm,
 					paste(
-						Desc, 
-						Key, 
+						Desc,
+						Key,
 						DatasetName
 					), ignore.case=TRUE
 				)
 			]
-		
+
 		#	rReasonableMatch[ ,
 		#		TableID := NA
 		#	]
@@ -354,16 +359,16 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 		#	rReasonableMatch[ ,
 		#		rootTabLine := NA
 		#	]
-		
+
 			rReasonableMatch[,
-				apiCall := 
+				apiCall :=
 					paste0(
 						"beaGet(list('UserID' = '[your_key]', 'Method' = 'GetData', 'DatasetName' = '",
-						DatasetName, 
-						"', '", 
-						Parameter, 
-						"' = '", 
-						Key, 
+						DatasetName,
+						"', '",
+						Parameter,
+						"' = '",
+						Key,
 						"', ...))"
 					)
 			]
@@ -374,9 +379,9 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 			searchMatch <- unique(
 				rbindlist(
 					list(
-	#					nPerfectMatch[, .(apiCall, datasetName, TableID, Description, paramType, Key, LineNumber, SeriesCode, LineDescription, rootTabLine)], 
-	#					rPerfectMatch[, .(apiCall, datasetName, TableID, Description, paramType, Key, LineNumber, SeriesCode, LineDescription, rootTabLine)], 
-	#					nReasonableMatch[, .(apiCall, datasetName, TableID, Description, paramType, Key, LineNumber, SeriesCode, LineDescription, rootTabLine)],  
+	#					nPerfectMatch[, .(apiCall, datasetName, TableID, Description, paramType, Key, LineNumber, SeriesCode, LineDescription, rootTabLine)],
+	#					rPerfectMatch[, .(apiCall, datasetName, TableID, Description, paramType, Key, LineNumber, SeriesCode, LineDescription, rootTabLine)],
+	#					nReasonableMatch[, .(apiCall, datasetName, TableID, Description, paramType, Key, LineNumber, SeriesCode, LineDescription, rootTabLine)],
 	#					rReasonableMatch[, .(apiCall, datasetName, TableID, Description, paramType, Key, LineNumber, SeriesCode, LineDescription, rootTabLine)]
 						nPerfectMatch,
 						rPerfectMatch,
@@ -388,7 +393,7 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 				)
 			)
 		}
-		
+
 		if(missingNat && !(missingReg)){
 			searchMatch <- unique(
 				rbindlist(
@@ -401,7 +406,7 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 				)
 			)
 		}
-		
+
 		if(!(missingNat) && missingReg){
 			searchMatch <- unique(
 				rbindlist(
@@ -414,7 +419,7 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 				)
 			)
 		}
-		
+
 		if(requireNamespace('DT', quietly = TRUE) && asHtml == TRUE){
 			requireNamespace('DT', quietly = TRUE)
 			searchMatch <- DT::datatable(searchMatch)
@@ -428,4 +433,3 @@ is not recommended, as the key is needed to update locally stored metadata.')}
 	})
  }
 }
- 
