@@ -23,7 +23,7 @@ userSpecList <- list('UserID' = Sys.getenv("BEA_API_KEY"),
 								'Method' = 'GetData',
 								'datasetname' = 'NIPA',
 								'Frequency' = 'A',
-								'TableID' = '68',
+								'TableName' = 'T20405',
 								'Year' = 'X')
 resp <- beaGet(userSpecList, asTable = FALSE)
 BL <- bea2List(resp)

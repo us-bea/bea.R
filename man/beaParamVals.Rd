@@ -11,7 +11,7 @@ beaParamVals(beaKey, setName, paramName)
 
 \item{setName}{Name of BEA dataset (e.g., NIPA)}
 
-\item{paramName}{Name of BEA dataset parameter (e.g., TableID)}
+\item{paramName}{Name of BEA dataset parameter (e.g., TableName)}
 }
 \value{
 A metadata object of class 'list' of several dimensions. View list structure using 'str(yourList)'.
@@ -21,7 +21,7 @@ Gives list of values possible for a given dataset's parameters
 }
 \examples{
 \dontshow{if (interactive()  && Sys.getenv("BEA_API_KEY") != "") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-beaParamVals(Sys.getenv("BEA_API_KEY"), 'NIPA', 'keycode')
+beaParamVals(Sys.getenv("BEA_API_KEY"), 'NIPA', 'TableName')
 \dontshow{\}) # examplesIf}
 }
 \keyword{metadata}

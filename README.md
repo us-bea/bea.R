@@ -143,7 +143,7 @@ bea.R is a library for use with BEA’s API and the R programming language, vers
 
 This library serves two core purposes:
 
-1.	To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly formats in the user's workspace. Transformation done by default in beaGet is analogous to the format used in [BEA's iTables](http://www.bea.gov/itable/index.cfm), but this can be modified using beaGet's optional parameters.
+1.	To Extract/Transform/Load data [beaGet] from the BEA API as R-friendly formats in the user's workspace. Transformation done by default in beaGet is analogous to the format used in [BEA's iTables](https://www.bea.gov/itable), but this can be modified using beaGet's optional parameters.
 
 2.	To enable the search of descriptive metadata [beaSearch].
 
