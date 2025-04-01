@@ -16,7 +16,8 @@ A metadata object of class 'list' of several dimensions. View list structure usi
 Returns a list of all datasets
 }
 \examples{
-beaSets('yourAPIkey')
+\dontshow{if (interactive()  && Sys.getenv("BEA_API_KEY") != "") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+beaSets(Sys.getenv("BEA_API_KEY"))
+\dontshow{\}) # examplesIf}
 }
 \keyword{metadata}
-
