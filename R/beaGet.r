@@ -21,7 +21,7 @@
 
 beaGet <- function(beaSpec, asString=FALSE, asList=FALSE, asTable=TRUE, asWide=TRUE, isMeta=FALSE, iTableStyle=TRUE) {
 #, asTS=FALSE
-	if(class(beaSpec) != 'list'){
+	if(!inherits(beaSpec, 'list')){
 		warning('Please specify API parameters as a list. For example:
 			beaGet(list("UserID" = "YourKey", "Method" = "GetData", [your remaining parameters]))')
 		stop(paste0('Invalid object class passed to beaGet([list of API parameters]): ', class(beaSpec), '. Should be of class "list"'), call.=TRUE)
@@ -32,7 +32,7 @@ beaGet <- function(beaSpec, asString=FALSE, asList=FALSE, asTable=TRUE, asWide=T
 	requireNamespace('httr', quietly = TRUE)
 	attributes(beaSpec)$names <- tolower(attributes(beaSpec)$names)
 
-	if(class(beaSpec$userid) != 'character'){
+	if(!inherits(beaSpec$userid, 'character')){
 		stop(paste0('Invalid API key of class ', class(beaSpec$userid)), call.=TRUE)
 	}
 

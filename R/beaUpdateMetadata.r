@@ -54,7 +54,7 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	beaResponse <- bea.R::beaGet(beaMetaSpecs, asList = FALSE, asTable = FALSE, isMeta = TRUE)
 
 	#Check to ensure it is httr response
-	if(class(beaResponse) != 'response'){
+	if(!inherits(beaResponse, 'response')){
 		stop('API metadata not returned.  Verify that you are using a valid API key, represented as a character string.', call.=TRUE)
 	}
 

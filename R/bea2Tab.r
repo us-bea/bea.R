@@ -19,7 +19,7 @@
 
 bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 	requireNamespace('data.table', quietly = TRUE)
-	if('response' %in% class(beaPayload)){
+	if(inherits(beaPayload, 'response')){
 		beaResponse <- bea.R::bea2List(beaPayload)
 	} else {
 		beaResponse <- beaPayload
@@ -49,7 +49,7 @@ bea2Tab <- function(beaPayload, asWide = TRUE, iTableStyle = TRUE) {
 	}
 	#Convert wide matrix to long
 	#(less common as data comes as long, but needed for beaViz)
-	if('data.frame' %in% class(beaPayload)){
+	if(inherits(beaPayload, 'data.frame')){
 		if(
 			attributes(beaPayload)$is.wide == TRUE &&
 			!asWide

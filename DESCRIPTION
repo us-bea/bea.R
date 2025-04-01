@@ -19,16 +19,16 @@ Imports:
 Description: Provides an R interface for the Bureau of Economic Analysis (BEA) 
 		API (see <http://www.bea.gov/API/bea_web_service_api_user_guide.htm> for 
 		more information) that serves two core purposes - 
-    1. To Extract/Transform/Load data [beaGet()] from the BEA API as R-friendly 
+    	1. To Extract/Transform/Load data [beaGet()] from the BEA API as R-friendly 
 		formats in the user's work space [transformation done by default in beaGet() 
 		can be modified using optional parameters; see, too, bea2List(), bea2Tab()].
 		2. To enable the search of descriptive meta data [beaSearch()].
 		Other features of the library exist mainly as intermediate methods 
 		or are in early stages of development.
 		Important Note - You must have an API key to use this library.  
-		Register for a key at <http://www.bea.gov/API/signup/index.cfm> .
+		Register for a key at <http://www.bea.gov/API/signup/index.cfm>.
 URL: https://github.com/us-bea/bea.R 
-License: CC0
+License: file LICENSE
 LazyData: no
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
