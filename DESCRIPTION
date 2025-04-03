@@ -25,10 +25,20 @@ Description: Provides an R interface for the Bureau of Economic Analysis (BEA)
 		2. To enable the search of descriptive meta data [beaSearch()].
 		Other features of the library exist mainly as intermediate methods 
 		or are in early stages of development.
-		Important Note - You must have an API key to use this library.  
+		Important Note - You must have an API key to use this library.
 		Register for a key at <http://www.bea.gov/API/signup/index.cfm>.
+		As a note regarding the license:  
+		Software code created by U.S. Government employees is not subject to 
+		copyright in the United States (17 U.S.C. §105). The United States/
+		Department of Commerce reserve all rights to seek and obtain copyright 
+		protection in countries other than the United States for Software authored 
+		in its entirety by the Department of Commerce. To this end, the Department 
+		of Commerce hereby grants to Recipient a royalty-free, nonexclusive license 
+		to freely use, copy, distribute, and create derivative works of the Software 
+		outside of the United States. The CC0 1.0 Universal License should be taken 
+		to apply to this work inside and outside of the United States.
 URL: https://github.com/us-bea/bea.R 
-License: file LICENSE
+License: CC0
 LazyData: no
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
