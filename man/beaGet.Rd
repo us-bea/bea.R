@@ -4,8 +4,15 @@
 \alias{beaGet}
 \title{Pass list of user specifications (including API key) to return data from BEA API.}
 \usage{
-beaGet(beaSpec, asString = FALSE, asList = FALSE, asTable = TRUE,
-  asWide = TRUE, isMeta = FALSE, iTableStyle = TRUE)
+beaGet(
+  beaSpec,
+  asString = FALSE,
+  asList = FALSE,
+  asTable = TRUE,
+  asWide = TRUE,
+  isMeta = FALSE,
+  iTableStyle = TRUE
+)
 }
 \arguments{
 \item{beaSpec}{A list of user specifications (required). In this example, 'GetData' specifies that we want data values (rather than metadata), 'NIPA' specifies the dataset, 'A' specifies that we want annual data, 'TableID' = '68' gets a specific table, and 'X' gets all years. See BEA API documentation or use metadata methods for complete lists of parameters.}
@@ -29,12 +36,13 @@ By default, an object of class 'list' of several dimensions. View list structure
 Pass list of user specifications (including API key) to return data from BEA API.
 }
 \examples{
-userSpecList <- list('UserID' = 'yourAPIKey' ,
+\dontshow{if (interactive()  && Sys.getenv("BEA_API_KEY") != "") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+userSpecList <- list('UserID' = Sys.getenv("BEA_API_KEY"),
 								'Method' = 'GetData',
 								'datasetname' = 'NIPA',
 								'Frequency' = 'A',
-								'TableID' = '68',
-								'Year' = 'X')	
+								'TableName' = 'T20405',
+								'Year' = 'X')
 BDT <- beaGet(userSpecList, asTable = TRUE)
+\dontshow{\}) # examplesIf}
 }
-

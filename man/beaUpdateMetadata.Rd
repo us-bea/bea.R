@@ -18,8 +18,9 @@ Nothing. This updates local .RData files to be used in beaSearch.
 Download BEA metadata into library/data folder if needed
 }
 \examples{
-beaUpdateMetadata(list('RegionalData', 'NIPA'), beaKey = 'yourAPIkey')
+\dontshow{if (interactive()  && Sys.getenv("BEA_API_KEY") != "") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+beaUpdateMetadata(list('NIUnderlyingDetail', 'NIPA'), beaKey = Sys.getenv("BEA_API_KEY"))
+\dontshow{\}) # examplesIf}
 }
 \keyword{metadata}
 \keyword{search}
-
