@@ -40,7 +40,7 @@ beaUpdateMetadata <- function(datasetList, beaKey){
 	requireNamespace('httr', quietly = TRUE)
 	requireNamespace('jsonlite', quietly = TRUE)
 
-	beaMetadataStore <- paste0(.libPaths()[1], '/beaR/data')
+	beaMetadataStore <- paste0(.libPaths()[1], '/bea.R/data')
 
 	beaMetaSpecs <- list(
 		'UserID' = beaKey ,
