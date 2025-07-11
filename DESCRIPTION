@@ -10,12 +10,12 @@ Author: Andrea Batch [aut, cre],
 		Walt Kampas [ctb]
 Maintainer: Andrea Batch <Andrea.Batch@bea.gov>
 Depends:
-    R (>= 3.2.1), 
-		data.table
+    R (>= 3.2.1)
 Imports: 
 		httr,
 		DT,
-		jsonlite
+		jsonlite, 
+		data.table
 Description: Provides an R interface for the Bureau of Economic Analysis (BEA) 
 		API (see <http://www.bea.gov/API/bea_web_service_api_user_guide.htm> for 
 		more information) that serves two core purposes - 
